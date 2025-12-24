@@ -3,6 +3,19 @@ import { HeartCrack, Heart } from 'lucide-react';
 import { QUIZ_QUESTIONS } from '../constants';
 import { PixelCard } from './PixelCard';
 
+// Sound effects
+const playCorrectSound = () => {
+  const audio = new Audio('/sfx/correct.mp3');
+  audio.volume = 0.6;
+  audio.play().catch(() => {});
+};
+
+const playWrongSound = () => {
+  const audio = new Audio('/sfx/wrong.mp3');
+  audio.volume = 0.6;
+  audio.play().catch(() => {});
+};
+
 interface QuizProps {
   onComplete: () => void;
 }
@@ -15,9 +28,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   const handleAnswer = (optionIndex: number) => {
     if (optionIndex === currentQ.correctAnswer) {
+      playCorrectSound();
       setFeedback({ type: 'success', msg: "Ești un geniu! Te iubesc!" });
       window.confetti({ particleCount: 50, spread: 50, origin: { y: 0.7 } });
-      
+
       setTimeout(() => {
         setFeedback(null);
         if (qIndex < QUIZ_QUESTIONS.length - 1) {
@@ -27,6 +41,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         }
       }, 2000);
     } else {
+      playWrongSound();
       setFeedback({ type: 'error', msg: currentQ.wrongMessage });
     }
   };

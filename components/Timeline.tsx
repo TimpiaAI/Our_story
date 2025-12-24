@@ -2,6 +2,13 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowRight, Star, Heart } from 'lucide-react';
 import { calculateDaysTogether, TIMELINE_EVENTS } from '../constants';
 
+// Button click sound
+const playButtonSound = () => {
+  const audio = new Audio('/sfx/bell_button.mp3');
+  audio.volume = 0.5;
+  audio.play().catch(() => {});
+};
+
 // Sprite configurations for different moments
 // Each event gets a specific pose - no frame switching to avoid stuttering
 const SPRITE_STATES = [
@@ -72,6 +79,7 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
   }, [currentStep]);
 
   const handleNext = () => {
+    playButtonSound();
     if (currentStep < TIMELINE_EVENTS.length - 1) {
       setShowPhoto(false);
       setTimeout(() => {

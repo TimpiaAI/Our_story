@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Heart, Star, Sparkles, ArrowRight } from 'lucide-react';
 import { GameLevel } from '../types';
 
+// Button click sound
+const playButtonSound = () => {
+  const audio = new Audio('/sfx/bell_button.mp3');
+  audio.volume = 0.5;
+  audio.play().catch(() => {});
+};
+
 // Funny Romanian messages for each level transition
 const TRANSITION_MESSAGES: Record<GameLevel, { title: string; message: string; emoji: string }> = {
   [GameLevel.HERO]: {
@@ -60,6 +67,7 @@ export const LevelTransition: React.FC<LevelTransitionProps> = ({ targetLevel, o
   const handleContinue = () => {
     if (isExiting) return; // Prevent double clicks
     setIsExiting(true);
+    playButtonSound();
 
     // First change the level while transition is still visible
     onComplete();

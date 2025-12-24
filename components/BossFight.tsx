@@ -1,6 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Zap, Shield, Sparkles } from 'lucide-react';
 import { BATTLE_MOVES, BATTLE_PHOTOS, PARTNER_NAME } from '../constants';
+
+// Sound effects
+const playHitSound = () => {
+  const audio = new Audio('/sfx/hit.mp3');
+  audio.volume = 0.5;
+  audio.play().catch(() => {});
+};
+
+const playKOSound = () => {
+  const audio = new Audio('/sfx/KO.mp3');
+  audio.volume = 0.8;
+  audio.play().catch(() => {});
+};
+
+const playButtonSound = () => {
+  const audio = new Audio('/sfx/bell_button.mp3');
+  audio.volume = 0.5;
+  audio.play().catch(() => {});
+};
 
 // Sprite paths
 const OVIDIU_SPRITES = [
@@ -49,12 +68,15 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
   const handleAttack = (move: typeof BATTLE_MOVES[0]) => {
     if (turn !== 'player' || isKo) return;
 
+    playButtonSound();
+
     // 1. Player Attacks
     setMessage(`Ai folosit ${move.name}!`);
     setPlayerAction('attack');
     
     setTimeout(() => {
       // 2. Impact
+      playHitSound(); // Play hit sound on impact
       setShakeScreen(true);
       setEnemyAction('hit');
       const dmg = move.dmg + Math.floor(Math.random() * 5);
@@ -98,6 +120,7 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
     setMessage(`${PARTNER_NAME} se face că e supărată...`);
 
     setTimeout(() => {
+      playHitSound(); // Play hit sound when enemy attacks
       setPlayerAction('hit');
       setShakeScreen(true);
       setPlayerHp(prev => Math.max(0, prev - 10));
@@ -114,6 +137,7 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
 
   const handleWin = () => {
     setIsKo(true);
+    playKOSound(); // Play KO sound effect
     setMessage("K.O. (KISS OUT)! AI CÂȘTIGAT INIMA EI!");
     window.confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
     setTimeout(onComplete, 4000);

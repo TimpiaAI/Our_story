@@ -3,6 +3,13 @@ import { Heart } from 'lucide-react';
 import { PARTNER_NAME } from '../constants';
 import { PixelCard } from './PixelCard';
 
+// Button click sound
+const playButtonSound = () => {
+  const audio = new Audio('/sfx/bell_button.mp3');
+  audio.volume = 0.5;
+  audio.play().catch(() => {});
+};
+
 // Sprite paths
 const OVIDIU_SPRITES = [
   '/imagini/Sprites/Ovidiu/3.png',
@@ -30,6 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   }, []);
 
   const handleClick = () => {
+    playButtonSound();
     // Trigger confetti
     window.confetti({
       particleCount: 150,
@@ -37,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
       origin: { y: 0.6 },
       colors: ['#ff0044', '#ffd700', '#ffffff']
     });
-    
+
     // Slight delay before state change
     setTimeout(onStart, 1000);
   };
