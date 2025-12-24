@@ -2,13 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { MEMORY_CARDS } from '../constants';
 import { PixelCard } from './PixelCard';
 import { Brain, Star } from 'lucide-react';
-
-// Button click sound
-const playButtonSound = () => {
-  const audio = new Audio('/sfx/bell_button.mp3');
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-};
+import { playButtonSound, playGoofySound } from '../utils/sounds';
 
 // Funny Romanian messages for silly cards
 const FUNNY_MESSAGES = [
@@ -73,9 +67,11 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
       const behavior = sillyCards[randomCard.id];
 
       if (behavior === 'jumpy') {
+        playGoofySound(0.3);
         setJumpingCard(randomCard.id);
         setTimeout(() => setJumpingCard(null), 500);
       } else if (behavior === 'dizzy') {
+        playGoofySound(0.3);
         setDizzyCard(randomCard.id);
         setTimeout(() => setDizzyCard(null), 1000);
       }
@@ -88,6 +84,9 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
   const triggerSillyEvent = (cardId: number) => {
     const behavior = sillyCards[cardId];
     if (!behavior) return;
+
+    // Play a goofy sound for silly cards
+    playGoofySound(0.5);
 
     setSillyCard(cardId);
     setSillyAnimation(behavior);

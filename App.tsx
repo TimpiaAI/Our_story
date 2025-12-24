@@ -10,6 +10,7 @@ import { Letter } from './components/Letter';
 import { CoffeeBreak } from './components/CoffeeBreak';
 import { LevelTransition } from './components/LevelTransition';
 import { Coffee, Volume2, VolumeX } from 'lucide-react';
+import { playButtonSound } from './utils/sounds';
 
 const App: React.FC = () => {
   const [level, setLevel] = useState<GameLevel>(GameLevel.HERO);
@@ -20,48 +21,24 @@ const App: React.FC = () => {
   const [isMuted, setIsMuted] = useState(false);
   const bgMusicRef = useRef<HTMLAudioElement | null>(null);
 
-  // Initialize and autoplay background music
+  // Initialize and autoplay background music - plays entire game at 20% volume
   useEffect(() => {
-    bgMusicRef.current = new Audio('/sfx/enetrign song .mp3');
+    bgMusicRef.current = new Audio('/sfx/cover/cover.mp3');
     bgMusicRef.current.loop = true;
-    bgMusicRef.current.volume = 0.5;
+    bgMusicRef.current.volume = 0.2; // 20% volume
 
     // Try to autoplay immediately
     bgMusicRef.current.play().catch(() => {
       // If autoplay is blocked, we'll start on first interaction
     });
 
-    // Fade out after 5 seconds
-    const fadeTimeout = setTimeout(() => {
-      if (bgMusicRef.current) {
-        const fadeInterval = setInterval(() => {
-          if (bgMusicRef.current && bgMusicRef.current.volume > 0.05) {
-            bgMusicRef.current.volume = Math.max(0, bgMusicRef.current.volume - 0.05);
-          } else {
-            clearInterval(fadeInterval);
-            if (bgMusicRef.current) {
-              bgMusicRef.current.pause();
-            }
-          }
-        }, 200); // Fade out over ~2 seconds
-      }
-    }, 5000);
-
     return () => {
-      clearTimeout(fadeTimeout);
       if (bgMusicRef.current) {
         bgMusicRef.current.pause();
         bgMusicRef.current = null;
       }
     };
   }, []);
-
-  // Button click sound
-  const playButtonSound = () => {
-    const audio = new Audio('/sfx/bell_button.mp3');
-    audio.volume = 0.5;
-    audio.play().catch(() => {});
-  };
 
   // Start the experience (also tries to play music if autoplay was blocked)
   const startExperience = () => {

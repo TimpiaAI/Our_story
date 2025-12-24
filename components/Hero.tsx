@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import { PARTNER_NAME } from '../constants';
 import { PixelCard } from './PixelCard';
-
-// Button click sound
-const playButtonSound = () => {
-  const audio = new Audio('/sfx/bell_button.mp3');
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-};
+import { playButtonSound } from '../utils/sounds';
 
 // Sprite paths
 const OVIDIU_SPRITES = [

@@ -2,19 +2,7 @@ import React, { useState } from 'react';
 import { HeartCrack, Heart } from 'lucide-react';
 import { QUIZ_QUESTIONS } from '../constants';
 import { PixelCard } from './PixelCard';
-
-// Sound effects
-const playCorrectSound = () => {
-  const audio = new Audio('/sfx/correct.mp3');
-  audio.volume = 0.6;
-  audio.play().catch(() => {});
-};
-
-const playWrongSound = () => {
-  const audio = new Audio('/sfx/wrong.mp3');
-  audio.volume = 0.6;
-  audio.play().catch(() => {});
-};
+import { playCorrectSound, playWrongSound, playButtonSound } from '../utils/sounds';
 
 interface QuizProps {
   onComplete: () => void;
@@ -81,7 +69,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {currentQ.options.map((opt, idx) => (
                 <button
                   key={idx}
-                  onClick={() => handleAnswer(idx)}
+                  onClick={() => { playButtonSound(); handleAnswer(idx); }}
                   className="w-full text-left font-pixel text-xs md:text-sm p-4 border-2 border-black hover:bg-pixel-pink hover:text-white transition-colors flex items-center gap-2"
                 >
                   <span className="w-6 h-6 flex items-center justify-center bg-black text-white text-[10px]">{String.fromCharCode(65 + idx)}</span>

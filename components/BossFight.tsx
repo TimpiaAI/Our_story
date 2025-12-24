@@ -1,25 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Zap, Shield, Sparkles } from 'lucide-react';
 import { BATTLE_MOVES, BATTLE_PHOTOS, PARTNER_NAME } from '../constants';
-
-// Sound effects
-const playHitSound = () => {
-  const audio = new Audio('/sfx/hit.mp3');
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-};
-
-const playKOSound = () => {
-  const audio = new Audio('/sfx/KO.mp3');
-  audio.volume = 0.8;
-  audio.play().catch(() => {});
-};
-
-const playButtonSound = () => {
-  const audio = new Audio('/sfx/bell_button.mp3');
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-};
+import { playHitSound, playKOSound, playButtonSound, playGoofySound } from '../utils/sounds';
 
 // Sprite paths
 const OVIDIU_SPRITES = [

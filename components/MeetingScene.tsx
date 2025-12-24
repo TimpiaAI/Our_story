@@ -1,18 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Dumbbell } from 'lucide-react';
-
-// Sound effects
-const playKissSound = () => {
-  const audio = new Audio('/sfx/Kiss Sound Effect.mp3');
-  audio.volume = 0.7;
-  audio.play().catch(() => {});
-};
-
-const playButtonSound = () => {
-  const audio = new Audio('/sfx/bell_button.mp3');
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-};
+import { playKissSound, playButtonSound, playGoofySound } from '../utils/sounds';
 
 interface MeetingSceneProps {
   onComplete: () => void;
@@ -110,6 +98,9 @@ export const MeetingScene: React.FC<MeetingSceneProps> = ({ onComplete }) => {
   }, []);
 
   const moveNoButton = () => {
+    // Play goofy sound when NO button runs away
+    playGoofySound(0.4);
+
     const randomX = Math.random() * 150 - 75;
     const randomY = Math.random() * 100 - 50;
     setNoBtnPos({

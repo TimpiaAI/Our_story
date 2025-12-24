@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Heart, Star, Sparkles, ArrowRight } from 'lucide-react';
 import { GameLevel } from '../types';
-
-// Button click sound
-const playButtonSound = () => {
-  const audio = new Audio('/sfx/bell_button.mp3');
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-};
+import { playButtonSound } from '../utils/sounds';
 
 // Funny Romanian messages for each level transition
 const TRANSITION_MESSAGES: Record<GameLevel, { title: string; message: string; emoji: string }> = {

@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowRight, Star, Heart } from 'lucide-react';
 import { calculateDaysTogether, TIMELINE_EVENTS } from '../constants';
-
-// Button click sound
-const playButtonSound = () => {
-  const audio = new Audio('/sfx/bell_button.mp3');
-  audio.volume = 0.5;
-  audio.play().catch(() => {});
-};
+import { playButtonSound } from '../utils/sounds';
 
 // Sprite configurations for different moments
 // Each event gets a specific pose - no frame switching to avoid stuttering
