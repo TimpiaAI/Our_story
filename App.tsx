@@ -7,6 +7,7 @@ import { MemoryGame } from './components/MemoryGame';
 import { Quiz } from './components/Quiz';
 import { BossFight } from './components/BossFight';
 import { Letter } from './components/Letter';
+import { LoveSlider } from './components/LoveSlider';
 import { CoffeeBreak } from './components/CoffeeBreak';
 import { LevelTransition } from './components/LevelTransition';
 import { Coffee, Volume2, VolumeX } from 'lucide-react';
@@ -80,7 +81,9 @@ const App: React.FC = () => {
       case GameLevel.MEETING:
         return <MeetingScene onComplete={() => transitionToLevel(GameLevel.TIMELINE)} />;
       case GameLevel.TIMELINE:
-        return <Timeline onComplete={() => transitionToLevel(GameLevel.MEMORY)} />;
+        return <Timeline onComplete={() => transitionToLevel(GameLevel.LOVE_SLIDER)} />;
+      case GameLevel.LOVE_SLIDER:
+        return <LoveSlider onComplete={() => transitionToLevel(GameLevel.MEMORY)} />;
       case GameLevel.MEMORY:
         return <MemoryGame onComplete={() => transitionToLevel(GameLevel.QUIZ)} />;
       case GameLevel.QUIZ:

@@ -20,6 +20,11 @@ const TRANSITION_MESSAGES: Record<GameLevel, { title: string; message: string; e
     message: "Nu-ți face griji, nu trebuie să ții minte toate datele... sau poate da?",
     emoji: "⏰"
   },
+  [GameLevel.LOVE_SLIDER]: {
+    title: "Test de iubire",
+    message: "Cât de mult mă iubești? Hai să vedem...",
+    emoji: "💕"
+  },
   [GameLevel.MEMORY]: {
     title: "Joc de memorie",
     message: "Hai să vedem dacă ai memorie de elefant sau de pește auriu!",
