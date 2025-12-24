@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Dumbbell } from 'lucide-react';
-import { playKissSound, playButtonSound, playGoofySound } from '../utils/sounds';
+import { playKissSound, playButtonSound, playGoofySound, playDaSauNuSound, playDaSound } from '../utils/sounds';
 
 interface MeetingSceneProps {
   onComplete: () => void;
@@ -113,6 +113,7 @@ export const MeetingScene: React.FC<MeetingSceneProps> = ({ onComplete }) => {
 
   const handleYes = () => {
     playButtonSound();
+    playDaSound();
     setStep(2);
     setTimeout(() => {
       setStep(3);
@@ -273,7 +274,7 @@ export const MeetingScene: React.FC<MeetingSceneProps> = ({ onComplete }) => {
               <span className="text-purple-400 text-xs mt-2 block">Era momentul decisiv.</span>
             </p>
             <button
-              onClick={() => { playButtonSound(); setStep(1); }}
+              onClick={() => { playButtonSound(); setStep(1); playDaSauNuSound(); }}
               className="bg-gradient-to-b from-white to-gray-200 text-black px-6 py-3 hover:from-gray-100 hover:to-gray-300 border-b-4 border-gray-500 active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2 mx-auto rounded-sm"
             >
               <span>Întreab-o</span>

@@ -25,7 +25,7 @@ const App: React.FC = () => {
   useEffect(() => {
     bgMusicRef.current = new Audio('/sfx/cover/cover.mp3');
     bgMusicRef.current.loop = true;
-    bgMusicRef.current.volume = 0.2; // 20% volume
+    bgMusicRef.current.volume = 0.05; // 5% volume
 
     // Try to autoplay immediately
     bgMusicRef.current.play().catch(() => {

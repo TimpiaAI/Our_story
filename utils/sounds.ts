@@ -35,12 +35,17 @@ const GOOFY_SOUNDS = [
   '/sfx/random_funny_sfx/all goofy ahh sound effects.mp3',
 ];
 
-// Play a random goofy sound effect
+// Play a random goofy sound effect (max 2 seconds)
 export const playGoofySound = (volume = 0.5) => {
   const randomIndex = Math.floor(Math.random() * GOOFY_SOUNDS.length);
   const audio = new Audio(GOOFY_SOUNDS[randomIndex]);
   audio.volume = volume;
   audio.play().catch(() => {});
+  // Stop after max 2 seconds
+  setTimeout(() => {
+    audio.pause();
+    audio.currentTime = 0;
+  }, 2000);
 };
 
 // Play button sound - 50% chance bell, 50% chance goofy
@@ -64,13 +69,52 @@ export const playKissSound = () => {
 export const playHitSound = () => {
   // 40% chance goofy hit sound
   if (Math.random() < 0.4) {
-    playGoofySound(0.6);
+    playGoofySound(0.8);
   } else {
     const audio = new Audio('/sfx/hit.mp3');
-    audio.volume = 0.9; // Louder
-    audio.currentTime = 1; // Start from 1 second mark
+    audio.volume = 1.0; // Max volume
     audio.play().catch(() => {});
   }
+};
+
+// Extra loud hit sound for boss fight using Web Audio API gain
+export const playHitSoundLoud = () => {
+  // 40% chance goofy hit sound
+  if (Math.random() < 0.4) {
+    playGoofySound(1.0);
+  } else {
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    fetch('/sfx/hit.mp3')
+      .then(response => response.arrayBuffer())
+      .then(buffer => audioContext.decodeAudioData(buffer))
+      .then(audioBuffer => {
+        const source = audioContext.createBufferSource();
+        const gainNode = audioContext.createGain();
+        source.buffer = audioBuffer;
+        gainNode.gain.value = 3.0; // 3x louder than normal
+        source.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        source.start(0);
+      })
+      .catch(() => {
+        // Fallback to regular audio
+        const audio = new Audio('/sfx/hit.mp3');
+        audio.volume = 1.0;
+        audio.play().catch(() => {});
+      });
+  }
+};
+
+export const playDaSauNuSound = () => {
+  const audio = new Audio('/sfx/da_sau_nu.mp3');
+  audio.volume = 1.0;
+  audio.play().catch(() => {});
+};
+
+export const playDaSound = () => {
+  const audio = new Audio('/sfx/da.mp3');
+  audio.volume = 1.0;
+  audio.play().catch(() => {});
 };
 
 export const playKOSound = () => {
@@ -83,6 +127,29 @@ export const playCorrectSound = () => {
   const audio = new Audio('/sfx/correct.mp3');
   audio.volume = 0.6;
   audio.play().catch(() => {});
+};
+
+export const playAngrySound = () => {
+  const audio = new Audio('/sfx/angrh.mp3');
+  audio.volume = 1.0;
+  audio.play().catch(() => {});
+};
+
+export const playAwwSound = () => {
+  const audio = new Audio('/sfx/aww.mp3');
+  audio.volume = 1.0;
+  audio.play().catch(() => {});
+};
+
+export const playClappingSound = () => {
+  const audio = new Audio('/sfx/calpping.mp3');
+  audio.volume = 1.0; // Max volume
+  audio.play().catch(() => {});
+  // Stop after 3 seconds
+  setTimeout(() => {
+    audio.pause();
+    audio.currentTime = 0;
+  }, 3000);
 };
 
 export const playWrongSound = () => {

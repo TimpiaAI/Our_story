@@ -2,23 +2,61 @@ import React, { useState } from 'react';
 import { HeartCrack, Heart } from 'lucide-react';
 import { QUIZ_QUESTIONS } from '../constants';
 import { PixelCard } from './PixelCard';
-import { playCorrectSound, playWrongSound, playButtonSound } from '../utils/sounds';
+import { playCorrectSound, playWrongSound, playButtonSound, playAngrySound, playAwwSound } from '../utils/sounds';
 
 interface QuizProps {
   onComplete: () => void;
 }
 
+const HAPPY_CAT_IMAGES = [
+  '/imagini/cat_love/cat-cat-love.png',
+  '/imagini/cat_love/8948d8ff510160d42c81f25312686f78.jpg'
+];
+
+const ANGRY_CAT_IMAGES = [
+  '/imagini/cat_angry/angry-cat-look-so-cute-v0-ejd1cnVqeXpxMzVkMb8jJq4INQakE2TcNQQ2RDZN0R_STwGaDU6BCN3K78I8.webp',
+  '/imagini/cat_angry/images (2).jpeg'
+];
+
+interface FallingCat {
+  id: number;
+  x: number;
+  image: string;
+  delay: number;
+  size: number;
+}
+
 export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [qIndex, setQIndex] = useState(0);
   const [feedback, setFeedback] = useState<{type: 'success'|'error', msg: string} | null>(null);
+  const [showCatPopup, setShowCatPopup] = useState<'happy' | 'angry' | null>(null);
+  const [catImage, setCatImage] = useState('');
+  const [fallingCats, setFallingCats] = useState<FallingCat[]>([]);
 
   const currentQ = QUIZ_QUESTIONS[qIndex];
 
   const handleAnswer = (optionIndex: number) => {
     if (optionIndex === currentQ.correctAnswer) {
       playCorrectSound();
+      playAwwSound();
       setFeedback({ type: 'success', msg: "Ești un geniu! Te iubesc!" });
-      window.confetti({ particleCount: 50, spread: 50, origin: { y: 0.7 } });
+      setCatImage(HAPPY_CAT_IMAGES[Math.floor(Math.random() * HAPPY_CAT_IMAGES.length)]);
+      setShowCatPopup('happy');
+      setTimeout(() => setShowCatPopup(null), 2000);
+
+      // Spawn falling cats instead of confetti
+      const newCats: FallingCat[] = [];
+      for (let i = 0; i < 15; i++) {
+        newCats.push({
+          id: Date.now() + i,
+          x: Math.random() * 100,
+          image: HAPPY_CAT_IMAGES[Math.floor(Math.random() * HAPPY_CAT_IMAGES.length)],
+          delay: Math.random() * 0.5,
+          size: 40 + Math.random() * 40
+        });
+      }
+      setFallingCats(newCats);
+      setTimeout(() => setFallingCats([]), 3000);
 
       setTimeout(() => {
         setFeedback(null);
@@ -30,7 +68,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       }, 2000);
     } else {
       playWrongSound();
+      playAngrySound();
       setFeedback({ type: 'error', msg: currentQ.wrongMessage });
+      setCatImage(ANGRY_CAT_IMAGES[Math.floor(Math.random() * ANGRY_CAT_IMAGES.length)]);
+      setShowCatPopup('angry');
+      setTimeout(() => setShowCatPopup(null), 2000);
     }
   };
 
@@ -80,6 +122,62 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           </>
         )}
       </PixelCard>
+
+      {/* Cat popup */}
+      {showCatPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none animate-cat-pop">
+          <img
+            src={catImage}
+            alt={showCatPopup === 'happy' ? 'Happy cat' : 'Angry cat'}
+            className="w-64 h-auto border-4 border-white shadow-2xl rounded-lg"
+          />
+        </div>
+      )}
+
+      {/* Falling cats rain */}
+      {fallingCats.length > 0 && (
+        <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
+          {fallingCats.map(cat => (
+            <img
+              key={cat.id}
+              src={cat.image}
+              alt="Falling cat"
+              className="absolute animate-fall-down rounded-lg"
+              style={{
+                left: `${cat.x}%`,
+                top: '-100px',
+                width: `${cat.size}px`,
+                animationDelay: `${cat.delay}s`
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      <style>{`
+        @keyframes cat-pop {
+          0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+          40% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+          60% { transform: scale(0.9) rotate(-5deg); }
+          80% { transform: scale(1.1) rotate(3deg); }
+          100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .animate-cat-pop { animation: cat-pop 0.5s ease-out; }
+
+        @keyframes fall-down {
+          0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(120vh) rotate(360deg);
+            opacity: 0.8;
+          }
+        }
+        .animate-fall-down {
+          animation: fall-down 2.5s ease-in forwards;
+        }
+      `}</style>
     </div>
   );
 };

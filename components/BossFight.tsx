@@ -1,7 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Zap, Shield, Sparkles } from 'lucide-react';
 import { BATTLE_MOVES, BATTLE_PHOTOS, PARTNER_NAME } from '../constants';
-import { playHitSound, playKOSound, playButtonSound, playGoofySound } from '../utils/sounds';
+import { playHitSoundLoud, playKOSound, playButtonSound, playGoofySound, playAwwSound, playAngrySound } from '../utils/sounds';
+
+const HAPPY_CAT_IMAGES = [
+  '/imagini/cat_love/cat-cat-love.png',
+  '/imagini/cat_love/8948d8ff510160d42c81f25312686f78.jpg'
+];
+
+const ANGRY_CAT_IMAGES = [
+  '/imagini/cat_angry/angry-cat-look-so-cute-v0-ejd1cnVqeXpxMzVkMb8jJq4INQakE2TcNQQ2RDZN0R_STwGaDU6BCN3K78I8.webp',
+  '/imagini/cat_angry/images (2).jpeg'
+];
 
 // Sprite paths
 const OVIDIU_SPRITES = [
@@ -25,6 +35,14 @@ interface FloatingPhoto {
   y: number;
 }
 
+interface FallingCat {
+  id: number;
+  x: number;
+  image: string;
+  delay: number;
+  size: number;
+}
+
 export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
   const [enemyHp, setEnemyHp] = useState(100); // Represents "Supărare" (Upset level)
   const [playerHp, setPlayerHp] = useState(100); // Represents "Patience"
@@ -38,6 +56,7 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
   const [playerAction, setPlayerAction] = useState<'idle' | 'attack' | 'hit'>('idle');
   const [enemyAction, setEnemyAction] = useState<'idle' | 'attack' | 'hit'>('idle');
   const [spriteFrame, setSpriteFrame] = useState(0);
+  const [fallingCats, setFallingCats] = useState<FallingCat[]>([]);
 
   // Cycle sprite frames every second
   useEffect(() => {
@@ -58,7 +77,23 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
     
     setTimeout(() => {
       // 2. Impact
-      playHitSound(); // Play hit sound on impact
+      playHitSoundLoud(); // Play hit sound on impact
+      playAwwSound(); // Happy sound when you attack
+
+      // Spawn falling happy cats
+      const newCats: FallingCat[] = [];
+      for (let i = 0; i < 10; i++) {
+        newCats.push({
+          id: Date.now() + i,
+          x: Math.random() * 100,
+          image: HAPPY_CAT_IMAGES[Math.floor(Math.random() * HAPPY_CAT_IMAGES.length)],
+          delay: Math.random() * 0.3,
+          size: 30 + Math.random() * 30
+        });
+      }
+      setFallingCats(newCats);
+      setTimeout(() => setFallingCats([]), 2000);
+
       setShakeScreen(true);
       setEnemyAction('hit');
       const dmg = move.dmg + Math.floor(Math.random() * 5);
@@ -102,7 +137,23 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
     setMessage(`${PARTNER_NAME} se face că e supărată...`);
 
     setTimeout(() => {
-      playHitSound(); // Play hit sound when enemy attacks
+      playHitSoundLoud(); // Play hit sound when enemy attacks
+      playAngrySound(); // Angry sound when enemy attacks
+
+      // Spawn falling angry cats
+      const newCats: FallingCat[] = [];
+      for (let i = 0; i < 10; i++) {
+        newCats.push({
+          id: Date.now() + i,
+          x: Math.random() * 100,
+          image: ANGRY_CAT_IMAGES[Math.floor(Math.random() * ANGRY_CAT_IMAGES.length)],
+          delay: Math.random() * 0.3,
+          size: 30 + Math.random() * 30
+        });
+      }
+      setFallingCats(newCats);
+      setTimeout(() => setFallingCats([]), 2000);
+
       setPlayerAction('hit');
       setShakeScreen(true);
       setPlayerHp(prev => Math.max(0, prev - 10));
@@ -261,6 +312,26 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
         </div>
       </div>
 
+      {/* Falling cats rain */}
+      {fallingCats.length > 0 && (
+        <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
+          {fallingCats.map(cat => (
+            <img
+              key={cat.id}
+              src={cat.image}
+              alt="Falling cat"
+              className="absolute animate-fall-down rounded-lg"
+              style={{
+                left: `${cat.x}%`,
+                top: '-80px',
+                width: `${cat.size}px`,
+                animationDelay: `${cat.delay}s`
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Animations CSS */}
       <style>{`
         @keyframes shake {
@@ -287,6 +358,19 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
         }
         .animate-float-up {
           animation: float-up 2s ease-out forwards;
+        }
+        @keyframes fall-down {
+          0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(120vh) rotate(360deg);
+            opacity: 0.8;
+          }
+        }
+        .animate-fall-down {
+          animation: fall-down 1.5s ease-in forwards;
         }
       `}</style>
     </div>

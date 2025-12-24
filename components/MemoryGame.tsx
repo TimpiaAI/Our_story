@@ -2,7 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { MEMORY_CARDS } from '../constants';
 import { PixelCard } from './PixelCard';
 import { Brain, Star } from 'lucide-react';
-import { playButtonSound, playGoofySound } from '../utils/sounds';
+import { playButtonSound, playGoofySound, playClappingSound, playAngrySound } from '../utils/sounds';
+
+const ANGRY_CAT_IMAGES = [
+  '/imagini/cat_angry/angry-cat-look-so-cute-v0-ejd1cnVqeXpxMzVkMb8jJq4INQakE2TcNQQ2RDZN0R_STwGaDU6BCN3K78I8.webp',
+  '/imagini/cat_angry/images (2).jpeg'
+];
 
 // Funny Romanian messages for silly cards
 const FUNNY_MESSAGES = [
@@ -34,6 +39,9 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
   const [funnyMessage, setFunnyMessage] = useState<string | null>(null);
   const [jumpingCard, setJumpingCard] = useState<number | null>(null);
   const [dizzyCard, setDizzyCard] = useState<number | null>(null);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [showAngryCat, setShowAngryCat] = useState(false);
+  const [angryCatImage, setAngryCatImage] = useState('');
 
   // Assign random silly behaviors to some cards (stable across renders)
   const sillyCards = useMemo(() => {
@@ -121,6 +129,10 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
         setSolved([...solved, flipped[0], id]);
         setFlipped([]);
         setDisabled(false);
+        // Play clapping sound and show celebration image
+        playClappingSound();
+        setShowCelebration(true);
+        setTimeout(() => setShowCelebration(false), 2500);
         // Mini celebration
         window.confetti({
              particleCount: 20,
@@ -129,6 +141,11 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
              colors: ['#FFD700']
         });
       } else {
+        // No match - show angry cat
+        playAngrySound();
+        setAngryCatImage(ANGRY_CAT_IMAGES[Math.floor(Math.random() * ANGRY_CAT_IMAGES.length)]);
+        setShowAngryCat(true);
+        setTimeout(() => setShowAngryCat(false), 1500);
         setTimeout(() => {
           setFlipped([]);
           setDisabled(false);
@@ -207,6 +224,28 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
           >
             Nivel Complet! Spre Quiz <Star className="fill-current" />
           </button>
+        )}
+
+        {/* Celebration image on match */}
+        {showCelebration && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none animate-celebration-pop">
+            <img
+              src="/imagini/clapping.webp"
+              alt="Celebration"
+              className="w-80 h-auto border-4 border-white shadow-2xl rounded-lg"
+            />
+          </div>
+        )}
+
+        {/* Angry cat on no match */}
+        {showAngryCat && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none animate-celebration-pop">
+            <img
+              src={angryCatImage}
+              alt="Angry cat"
+              className="w-64 h-auto border-4 border-white shadow-2xl rounded-lg"
+            />
+          </div>
         )}
       </div>
 
@@ -289,6 +328,15 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
           100% { transform: translateX(-50%) scale(1); opacity: 1; }
         }
         .animate-bounce-in { animation: bounce-in 0.3s ease-out; }
+
+        @keyframes celebration-pop {
+          0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+          30% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+          50% { transform: scale(1) rotate(-3deg); }
+          70% { transform: scale(1.1) rotate(2deg); }
+          100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .animate-celebration-pop { animation: celebration-pop 0.5s ease-out; }
       `}</style>
     </div>
   );

@@ -2,6 +2,7 @@ export enum GameLevel {
   HERO = 'HERO',
   MEETING = 'MEETING', // Nivelul nou cu banca
   TIMELINE = 'TIMELINE',
+  LOVE_SLIDER = 'LOVE_SLIDER', // Slider cu cat de mult te iubesc
   MEMORY = 'MEMORY',
   QUIZ = 'QUIZ',
   BOSS = 'BOSS',
