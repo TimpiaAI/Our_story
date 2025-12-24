@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowRight, Star, Heart } from 'lucide-react';
 import { calculateDaysTogether, TIMELINE_EVENTS } from '../constants';
 
@@ -11,6 +11,12 @@ const SPRITE_STATES = [
   { ovidiu: '/imagini/Sprites/Ovidiu/4.png', antonia: '/imagini/Sprites/Antonia/1.png' }, // Viitor - mixed poses
 ];
 
+// Seeded random for stable positions
+const seededRandom = (seed: number) => {
+  const x = Math.sin(seed * 9999) * 10000;
+  return x - Math.floor(x);
+};
+
 interface TimelineProps {
   onComplete: () => void;
 }
@@ -19,9 +25,43 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
   const days = calculateDaysTogether();
   const [currentStep, setCurrentStep] = useState(0);
   const [showPhoto, setShowPhoto] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   // Get the sprite state for current timeline moment
   const currentSprites = SPRITE_STATES[currentStep] || SPRITE_STATES[0];
+
+  // Generate stable random positions for decorative elements (only once)
+  const snowflakes = useMemo(() =>
+    [...Array(50)].map((_, i) => ({
+      left: seededRandom(i + 1) * 100,
+      delay: seededRandom(i + 100) * 5,
+      duration: 5 + seededRandom(i + 200) * 5,
+      size: 8 + seededRandom(i + 300) * 12,
+      opacity: 0.6 + seededRandom(i + 400) * 0.4
+    })), []);
+
+  const floatingHearts = useMemo(() =>
+    [...Array(15)].map((_, i) => ({
+      left: seededRandom(i + 500) * 100,
+      delay: seededRandom(i + 600) * 8,
+      duration: 8 + seededRandom(i + 700) * 6,
+      size: 16 + seededRandom(i + 800) * 20,
+      opacity: 0.4 + seededRandom(i + 900) * 0.4
+    })), []);
+
+  const stars = useMemo(() =>
+    [...Array(30)].map((_, i) => ({
+      left: seededRandom(i + 1000) * 100,
+      top: seededRandom(i + 1100) * 50,
+      size: 2 + seededRandom(i + 1200) * 2,
+      delay: seededRandom(i + 1300) * 3
+    })), []);
+
+  // Delay initial render to let animations settle
+  useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 50);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Auto-show photo after movement delay
   useEffect(() => {
@@ -46,21 +86,21 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
   const progress = ((currentStep + 1) / TIMELINE_EVENTS.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-950 via-purple-900 to-indigo-900 flex flex-col relative overflow-hidden">
+    <div className={`min-h-screen bg-gradient-to-b from-indigo-950 via-purple-900 to-indigo-900 flex flex-col relative overflow-hidden transition-opacity duration-500 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
 
       {/* --- Snowflakes --- */}
       <div className="absolute inset-0 pointer-events-none z-10">
-        {[...Array(50)].map((_, i) => (
+        {snowflakes.map((flake, i) => (
           <div
             key={i}
-            className="absolute text-white animate-snowfall"
+            className="absolute text-white animate-snowfall will-change-transform"
             style={{
-              left: `${Math.random() * 100}%`,
+              left: `${flake.left}%`,
               top: `-20px`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 5}s`,
-              fontSize: `${8 + Math.random() * 12}px`,
-              opacity: 0.6 + Math.random() * 0.4
+              animationDelay: `${flake.delay}s`,
+              animationDuration: `${flake.duration}s`,
+              fontSize: `${flake.size}px`,
+              opacity: flake.opacity
             }}
           >
             ❄
@@ -70,18 +110,18 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
 
       {/* --- Floating Hearts --- */}
       <div className="absolute inset-0 pointer-events-none z-5">
-        {[...Array(15)].map((_, i) => (
+        {floatingHearts.map((heart, i) => (
           <Heart
             key={i}
-            className="absolute text-red-500 fill-red-500 animate-float-heart"
+            className="absolute text-red-500 fill-red-500 animate-float-heart will-change-transform"
             style={{
-              left: `${Math.random() * 100}%`,
+              left: `${heart.left}%`,
               bottom: `-30px`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${8 + Math.random() * 6}s`,
-              width: `${16 + Math.random() * 20}px`,
-              height: `${16 + Math.random() * 20}px`,
-              opacity: 0.4 + Math.random() * 0.4
+              animationDelay: `${heart.delay}s`,
+              animationDuration: `${heart.duration}s`,
+              width: `${heart.size}px`,
+              height: `${heart.size}px`,
+              opacity: heart.opacity
             }}
           />
         ))}
@@ -89,16 +129,16 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
 
       {/* --- Stars Background --- */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {stars.map((star, i) => (
           <div
             key={i}
-            className="absolute bg-white rounded-full animate-twinkle"
+            className="absolute bg-white rounded-full animate-twinkle will-change-opacity"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 50}%`,
-              width: `${2 + Math.random() * 2}px`,
-              height: `${2 + Math.random() * 2}px`,
-              animationDelay: `${Math.random() * 3}s`
+              left: `${star.left}%`,
+              top: `${star.top}%`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              animationDelay: `${star.delay}s`
             }}
           />
         ))}
