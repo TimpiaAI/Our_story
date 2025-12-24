@@ -117,6 +117,33 @@ export const playDaSound = () => {
   audio.play().catch(() => {});
 };
 
+export const playSliderSound = () => {
+  const audio = new Audio('/sfx/slider_Sfx.mp3');
+  audio.volume = 0.5;
+  audio.play().catch(() => {});
+};
+
+export const playSliderWrongSound = () => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  fetch('/sfx/slider_wrong.mp3')
+    .then(response => response.arrayBuffer())
+    .then(buffer => audioContext.decodeAudioData(buffer))
+    .then(audioBuffer => {
+      const source = audioContext.createBufferSource();
+      const gainNode = audioContext.createGain();
+      source.buffer = audioBuffer;
+      gainNode.gain.value = 2.5; // Extra loud
+      source.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      source.start(0);
+    })
+    .catch(() => {
+      const audio = new Audio('/sfx/slider_wrong.mp3');
+      audio.volume = 1.0;
+      audio.play().catch(() => {});
+    });
+};
+
 export const playKOSound = () => {
   const audio = new Audio('/sfx/KO.mp3');
   audio.volume = 0.8;

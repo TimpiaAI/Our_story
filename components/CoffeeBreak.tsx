@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, Coffee } from 'lucide-react';
+import React, { useRef, useEffect } from 'react';
+import { X } from 'lucide-react';
 
 interface CoffeeBreakProps {
   isOpen: boolean;
@@ -7,31 +7,50 @@ interface CoffeeBreakProps {
 }
 
 export const CoffeeBreak: React.FC<CoffeeBreakProps> = ({ isOpen, onClose }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (isOpen && videoRef.current) {
+      videoRef.current.volume = 1.0;
+      videoRef.current.play().catch(() => {});
+    } else if (!isOpen && videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [isOpen]);
+
+  const handleClose = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-      <div className="bg-white max-w-3xl w-full p-2 border-4 border-black relative">
-        <button 
-          onClick={onClose}
-          className="absolute -top-6 -right-6 bg-red-600 text-white p-2 border-2 border-black hover:bg-red-700"
+    <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+      <div className="bg-black max-w-3xl w-full border-4 border-white relative">
+        <button
+          onClick={handleClose}
+          className="absolute -top-4 -right-4 bg-red-600 text-white w-10 h-10 rounded-full border-4 border-black hover:bg-red-700 z-10 flex items-center justify-center"
         >
-          <X />
+          <X className="w-5 h-5" />
         </button>
-        
-        <div className="bg-black aspect-video flex items-center justify-center text-white font-pixel text-center p-8">
-           {/* In a real app, embed YouTube or Video file here */}
-           <div>
-             <Coffee className="w-16 h-16 mx-auto mb-4 text-pixel-gold" />
-             <p className="mb-4">VIDEO MONTAJ</p>
-             <p className="text-xs text-gray-400 max-w-md mx-auto">
-               Imaginează-ți aici melodia noastră preferată și un colaj cu cele mai frumoase poze ale noastre de anul acesta.
-             </p>
-             <div className="mt-8 text-[10px] text-gray-500 font-sans">
-               (Pentru demo, acest player este simulat)
-             </div>
-           </div>
+
+        <div className="font-pixel text-white text-center py-2 bg-pixel-red border-b-2 border-white">
+          ☕ PAUZĂ DE CAFEA ☕
         </div>
+
+        <video
+          ref={videoRef}
+          src="/sfx/vfx/pauza.mp4"
+          className="w-full"
+          controls
+          autoPlay
+          playsInline
+        />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { MEMORY_CARDS } from '../constants';
 import { PixelCard } from './PixelCard';
-import { Brain, Star } from 'lucide-react';
+import { Brain, Star, X } from 'lucide-react';
 import { playButtonSound, playGoofySound, playClappingSound, playAngrySound } from '../utils/sounds';
 
 const ANGRY_CAT_IMAGES = [
@@ -42,6 +42,9 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
   const [showCelebration, setShowCelebration] = useState(false);
   const [showAngryCat, setShowAngryCat] = useState(false);
   const [angryCatImage, setAngryCatImage] = useState('');
+  const [mistakes, setMistakes] = useState(0);
+  const [showForcedBreak, setShowForcedBreak] = useState(false);
+  const breakVideoRef = useRef<HTMLVideoElement>(null);
 
   // Assign random silly behaviors to some cards (stable across renders)
   const sillyCards = useMemo(() => {
@@ -141,11 +144,26 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
              colors: ['#FFD700']
         });
       } else {
-        // No match - show angry cat
+        // No match - show angry cat and track mistake
         playAngrySound();
         setAngryCatImage(ANGRY_CAT_IMAGES[Math.floor(Math.random() * ANGRY_CAT_IMAGES.length)]);
         setShowAngryCat(true);
         setTimeout(() => setShowAngryCat(false), 1500);
+
+        const newMistakes = mistakes + 1;
+        setMistakes(newMistakes);
+
+        // After 5 mistakes, show forced break
+        if (newMistakes >= 5 && newMistakes % 5 === 0) {
+          setTimeout(() => {
+            setShowForcedBreak(true);
+            if (breakVideoRef.current) {
+              breakVideoRef.current.volume = 1.0;
+              breakVideoRef.current.play().catch(() => {});
+            }
+          }, 1600);
+        }
+
         setTimeout(() => {
           setFlipped([]);
           setDisabled(false);
@@ -245,6 +263,39 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
               alt="Angry cat"
               className="w-64 h-auto border-4 border-white shadow-2xl rounded-lg"
             />
+          </div>
+        )}
+
+        {/* Forced break after many mistakes */}
+        {showForcedBreak && (
+          <div className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4">
+            <div className="bg-black max-w-xl w-full border-4 border-white relative">
+              <button
+                onClick={() => {
+                  if (breakVideoRef.current) {
+                    breakVideoRef.current.pause();
+                    breakVideoRef.current.currentTime = 0;
+                  }
+                  setShowForcedBreak(false);
+                }}
+                className="absolute -top-4 -right-4 bg-red-600 text-white w-10 h-10 rounded-full border-4 border-black hover:bg-red-700 z-10 flex items-center justify-center"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="font-pixel text-white text-center py-3 bg-pixel-pink border-b-2 border-white text-sm">
+                ☕ Poate ai nevoie de o pauză... ☕
+              </div>
+
+              <video
+                ref={breakVideoRef}
+                src="/sfx/vfx/pauza.mp4"
+                className="w-full"
+                controls
+                autoPlay
+                playsInline
+              />
+            </div>
           </div>
         )}
       </div>
