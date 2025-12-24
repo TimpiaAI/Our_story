@@ -8,26 +8,45 @@ import { Quiz } from './components/Quiz';
 import { BossFight } from './components/BossFight';
 import { Letter } from './components/Letter';
 import { CoffeeBreak } from './components/CoffeeBreak';
+import { LevelTransition } from './components/LevelTransition';
 import { Coffee } from 'lucide-react';
 
 const App: React.FC = () => {
   const [level, setLevel] = useState<GameLevel>(GameLevel.HERO);
   const [isCoffeeBreakOpen, setIsCoffeeBreakOpen] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [nextLevel, setNextLevel] = useState<GameLevel | null>(null);
+
+  // Handle level transition with animation
+  const transitionToLevel = (targetLevel: GameLevel) => {
+    setNextLevel(targetLevel);
+    setIsTransitioning(true);
+  };
+
+  // Called when user clicks continue - changes level while transition still visible
+  const handleTransitionComplete = () => {
+    if (nextLevel) {
+      setLevel(nextLevel);
+      setNextLevel(null);
+      // Close transition after fade-out animation completes
+      setTimeout(() => setIsTransitioning(false), 600);
+    }
+  };
 
   const renderLevel = () => {
     switch (level) {
       case GameLevel.HERO:
-        return <Hero onStart={() => setLevel(GameLevel.MEETING)} />;
+        return <Hero onStart={() => transitionToLevel(GameLevel.MEETING)} />;
       case GameLevel.MEETING:
-        return <MeetingScene onComplete={() => setLevel(GameLevel.TIMELINE)} />;
+        return <MeetingScene onComplete={() => transitionToLevel(GameLevel.TIMELINE)} />;
       case GameLevel.TIMELINE:
-        return <Timeline onComplete={() => setLevel(GameLevel.MEMORY)} />;
+        return <Timeline onComplete={() => transitionToLevel(GameLevel.MEMORY)} />;
       case GameLevel.MEMORY:
-        return <MemoryGame onComplete={() => setLevel(GameLevel.QUIZ)} />;
+        return <MemoryGame onComplete={() => transitionToLevel(GameLevel.QUIZ)} />;
       case GameLevel.QUIZ:
-        return <Quiz onComplete={() => setLevel(GameLevel.BOSS)} />;
+        return <Quiz onComplete={() => transitionToLevel(GameLevel.BOSS)} />;
       case GameLevel.BOSS:
-        return <BossFight onComplete={() => setLevel(GameLevel.LETTER)} />;
+        return <BossFight onComplete={() => transitionToLevel(GameLevel.LETTER)} />;
       case GameLevel.LETTER:
         return <Letter />;
       default:
@@ -50,10 +69,18 @@ const App: React.FC = () => {
 
       {renderLevel()}
 
-      <CoffeeBreak 
-        isOpen={isCoffeeBreakOpen} 
-        onClose={() => setIsCoffeeBreakOpen(false)} 
+      <CoffeeBreak
+        isOpen={isCoffeeBreakOpen}
+        onClose={() => setIsCoffeeBreakOpen(false)}
       />
+
+      {/* Level transition overlay */}
+      {isTransitioning && nextLevel && (
+        <LevelTransition
+          targetLevel={nextLevel}
+          onComplete={handleTransitionComplete}
+        />
+      )}
     </div>
   );
 };
