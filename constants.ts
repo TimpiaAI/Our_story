@@ -16,24 +16,28 @@ export const calculateDaysTogether = () => {
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 1,
-    question: "Unde ne place nouă să mergem cel mai des?",
-    options: ["La film", "În parc", "La restaurantul nostru", "Pe lună"],
-    correctAnswer: 2,
-    wrongMessage: "Eroare! Nu mai ții minte? Pedeapsă: Un pupic!"
+    question: "Ce îmi place să fac cel mai mult?",
+    options: ["Să stau pe laptop", "Să merg la sală", "Să mănânc", "Să fac de mâncare"],
+    correctAnswer: -1, // Hidden answer - none of these, real answer is "Să stau cu tine"
+    hiddenAnswer: "Să stau cu tine! 💕",
+    wrongMessage: "Haha, te-am păcălit! Răspunsul corect era ascuns!"
   },
   {
     id: 2,
-    question: "Care este culoarea mea preferată când mă gândesc la tine?",
-    options: ["Albastru", "Roșu Aprins", "Verde", "Gri"],
-    correctAnswer: 1,
-    wrongMessage: "Nu! Gândește-te la inima mea! Pedeapsă: O îmbrățișare!"
+    question: "Unde a fost primul nostru date?",
+    options: ["Pe deal", "Pe cetate", "Nu știu, dar erau cartofi cu prea mult piper 🌶️"],
+    correctAnswer: 2,
+    wrongMessage: "Greșit!"
   },
   {
     id: 3,
-    question: "Cât de mult te iubesc?",
-    options: ["Până la cer", "Infinit", "Ca pe sarmale", "Toate de mai sus"],
-    correctAnswer: 3,
-    wrongMessage: "Răspuns incorect! De fapt, te iubesc și mai mult. Pedeapsă: Spune 'Te iubesc'!"
+    question: "Dacă ar fi să mă descrii, cum m-ai descrie?",
+    options: [], // Special drag-and-drop question
+    correctAnswer: -2, // Special type indicator
+    wrongMessage: "Încearcă din nou!",
+    isDragDrop: true,
+    goodWords: ["Frumos", "Deștept", "Cel mai bun"],
+    badWords: ["Urât", "Prost", "Enervant", "Leneș", "Ciudat"]
   }
 ];
 
@@ -85,7 +89,7 @@ export const TIMELINE_EVENTS = [
     title: "După Capace",
     icon: "🎯",
     image: "/imagini/personal/timeline/dupacapace_4august_2024.png",
-    desc: "Am supraviețuit împreună!",
+    desc: "",
     isPause: false
   },
   {
@@ -93,7 +97,7 @@ export const TIMELINE_EVENTS = [
     title: "Drumeție",
     icon: "🥾",
     image: "/imagini/personal/timeline/drumetie_24august2024.png",
-    desc: "Natură, aer curat și tu lângă mine.",
+    desc: "",
     isPause: false
   },
   {
@@ -118,7 +122,7 @@ export const TIMELINE_EVENTS = [
     title: "#StopDroguri",
     icon: "💪",
     image: "/imagini/personal/timeline/stopdroguri_14_mar_2025.png",
-    desc: "Mesaj important, împreună suntem mai puternici.",
+    desc: "",
     isPause: false
   },
   {
@@ -126,7 +130,7 @@ export const TIMELINE_EVENTS = [
     title: "Alba Iulia",
     icon: "🏰",
     image: "/imagini/personal/timeline/5_aprilie_2025_alba_iulia.png",
-    desc: "Istorie și dragoste în cetate.",
+    desc: "",
     isPause: false
   },
   {
@@ -160,7 +164,7 @@ export const TIMELINE_EVENTS = [
     title: "Mamaia",
     icon: "🏖️",
     image: "/imagini/personal/timeline/mamaia_5_iulie_2025.png",
-    desc: "Soare, mare și tu.",
+    desc: "",
     isPause: false
   },
   {
@@ -201,14 +205,6 @@ export const TIMELINE_EVENTS = [
     icon: "💪",
     image: "/imagini/personal/timeline/spate_puternic_dec_2025_ultima_poza.png",
     desc: "Spate mare!",
-    isPause: false
-  },
-  {
-    date: "Viitor",
-    title: "Pentru Totdeauna",
-    icon: "💍",
-    image: "/imagini/personal/timeline/spate_puternic_dec_2025_ultima_poza.png",
-    desc: "Urmează o viață întreagă de aventuri împreună.",
     isPause: false
   }
 ];

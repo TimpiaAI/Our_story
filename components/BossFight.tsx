@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Zap, Shield, Sparkles } from 'lucide-react';
 import { BATTLE_MOVES, BATTLE_PHOTOS, PARTNER_NAME } from '../constants';
-import { playHitSoundLoud, playKOSound, playButtonSound, playGoofySound, playAwwSound, playAngrySound } from '../utils/sounds';
+import { playHitSoundLoud, playKOSound, playButtonSound, playGoofySound, playAwwSound, playAngrySound, playSpecificSound } from '../utils/sounds';
 
 const HAPPY_CAT_IMAGES = [
   '/imagini/cat_love/cat-cat-love.png',
@@ -57,6 +57,11 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
   const [enemyAction, setEnemyAction] = useState<'idle' | 'attack' | 'hit'>('idle');
   const [spriteFrame, setSpriteFrame] = useState(0);
   const [fallingCats, setFallingCats] = useState<FallingCat[]>([]);
+
+  // Play fight sound when component mounts
+  useEffect(() => {
+    playSpecificSound('/sfx/fight.mp3', 0.8, 0);
+  }, []);
 
   // Cycle sprite frames every second
   useEffect(() => {

@@ -26,7 +26,7 @@ export const Letter: React.FC = () => {
             Ești cel mai frumos <span className="text-pixel-red font-bold">High Score</span> al vieții mele.
           </p>
           <p>
-            Suntem la al doilea nostru Revelion și abia aștept să deblocăm nivelurile din 2026 împreună.
+            Suntem la al doilea nostru Crăciun împreună și abia așteptăm să facem cât mai multe streak-uri memorabile împreună.
           </p>
           <p className="text-2xl sm:text-4xl mt-4 sm:mt-8 block transform -rotate-2 text-red-600">
             Te iubesc enorm, {PARTNER_NAME}!
@@ -49,12 +49,11 @@ export const Letter: React.FC = () => {
                className="bg-red-800 text-parchment font-serif italic px-4 sm:px-8 py-2 sm:py-3 text-sm sm:text-base rounded shadow-lg hover:bg-red-900 transition-colors flex items-center gap-2"
              >
                <Gift className="w-4 h-4 sm:w-5 sm:h-5" />
-               Apasă aici pentru cadoul real
+               Apasă pentru a vedea cadoul real
              </button>
            ) : (
              <div className="text-center animate-pulse bg-white/50 p-3 sm:p-4 rounded-lg border border-red-200">
-               <p className="font-sans font-bold text-red-800 text-base sm:text-lg">Caută sub brad cutia cu fundă aurie!</p>
-               <p className="text-xs sm:text-sm text-gray-600 italic mt-1">Sper să îți placă ❤️</p>
+               <p className="font-sans font-bold text-red-800 text-base sm:text-lg">Caută-l pe Baba, dă-i un pupic și întreabă-l despre cadoul de sub brad!</p>
              </div>
            )}
         </div>

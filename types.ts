@@ -14,8 +14,12 @@ export interface QuizQuestion {
   id: number;
   question: string;
   options: string[];
-  correctAnswer: number; // Index of correct answer
+  correctAnswer: number; // Index of correct answer, -1 for hidden, -2 for drag-drop
   wrongMessage: string;
+  hiddenAnswer?: string; // For questions with hidden correct answer
+  isDragDrop?: boolean; // For drag-and-drop questions
+  goodWords?: string[]; // Words that should be dragged
+  badWords?: string[]; // Words that should NOT be dragged
 }
 
 // Global declaration for canvas-confetti

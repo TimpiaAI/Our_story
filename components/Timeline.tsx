@@ -49,7 +49,7 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
 
   // Auto-show photo after delay
   useEffect(() => {
-    const timer = setTimeout(() => setShowPhoto(true), 400);
+    const timer = setTimeout(() => setShowPhoto(true), 100);
     return () => clearTimeout(timer);
   }, [currentStep]);
 
@@ -61,11 +61,9 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
   }, [currentStep]);
 
   const handleNext = () => {
-    playButtonSound();
-
     if (currentStep < TIMELINE_EVENTS.length - 1) {
       setShowPhoto(false);
-      setTimeout(() => setCurrentStep(prev => prev + 1), 200);
+      setTimeout(() => setCurrentStep(prev => prev + 1), 400);
     } else {
       onComplete();
     }
