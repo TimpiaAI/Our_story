@@ -116,14 +116,14 @@ export const LoveSlider: React.FC<LoveSliderProps> = ({ onComplete }) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-300 via-pink-200 to-pink-100 flex flex-col items-center justify-center p-4 relative overflow-hidden">
 
-      <div className="bg-black text-white font-pixel p-2 text-center mb-8 border-2 border-white w-full max-w-lg z-10">
+      <div className="bg-black text-white font-pixel p-2 text-center mb-4 sm:mb-8 border-2 border-white w-full max-w-lg z-10 text-[10px] sm:text-sm mx-4">
         NIVELUL SPECIAL: CÂT DE MULT TE IUBESC?
       </div>
 
       {phase === 'sliding' && (
-        <PixelCard className="max-w-lg w-full z-10">
+        <PixelCard className="max-w-lg w-full z-10 mx-4">
           <div className="text-center">
-            <h2 className="font-pixel text-lg mb-6">
+            <h2 className="font-pixel text-sm sm:text-lg mb-4 sm:mb-6">
               Cât de mult crezi că te iubesc? 💕
             </h2>
 
@@ -136,26 +136,26 @@ export const LoveSlider: React.FC<LoveSliderProps> = ({ onComplete }) => {
                 onChange={handleSliderChange}
                 className="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-love"
               />
-              <div className="flex justify-between text-xs font-pixel mt-2">
+              <div className="flex justify-between text-[10px] sm:text-xs font-pixel mt-2">
                 <span>0%</span>
                 <span>50%</span>
                 <span>100%</span>
               </div>
             </div>
 
-            <div className="text-6xl font-pixel text-pixel-red mb-4">
+            <div className="text-4xl sm:text-6xl font-pixel text-pixel-red mb-4">
               {sliderValue}%
             </div>
 
             {message && (
-              <p className="font-pixel text-sm text-red-500 mb-4 animate-bounce">
+              <p className="font-pixel text-xs sm:text-sm text-red-500 mb-4 animate-bounce">
                 {message}
               </p>
             )}
 
             <button
               onClick={handleConfirm}
-              className="bg-pixel-pink text-white font-pixel py-3 px-8 border-b-4 border-r-4 border-black hover:bg-pink-600 active:border-b-0 active:border-r-0"
+              className="bg-pixel-pink text-white font-pixel py-2 sm:py-3 px-6 sm:px-8 text-xs sm:text-sm border-b-4 border-r-4 border-black hover:bg-pink-600 active:border-b-0 active:border-r-0"
             >
               CONFIRMĂ 💖
             </button>
@@ -164,16 +164,16 @@ export const LoveSlider: React.FC<LoveSliderProps> = ({ onComplete }) => {
       )}
 
       {phase === 'angry' && (
-        <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-black/90">
+        <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-black/90 p-4">
           <img
             src={ANGRY_CAT_IMAGES[Math.floor(Math.random() * ANGRY_CAT_IMAGES.length)]}
             alt="Angry cat"
-            className="w-48 h-auto border-4 border-white rounded-lg mb-6 animate-shake"
+            className="w-32 sm:w-48 h-auto border-4 border-white rounded-lg mb-4 sm:mb-6 animate-shake"
           />
-          <p className="font-pixel text-xl text-white text-center px-4 w-full">
+          <p className="font-pixel text-sm sm:text-xl text-white text-center px-4 w-full">
             Doar 100%?! Atât de puțin crezi?!
           </p>
-          <p className="font-pixel text-lg text-pink-400 mt-4 animate-pulse text-center w-full">
+          <p className="font-pixel text-xs sm:text-lg text-pink-400 mt-2 sm:mt-4 animate-pulse text-center w-full">
             Stai să-ți arăt eu realitatea... 😼
           </p>
         </div>
@@ -221,9 +221,9 @@ export const LoveSlider: React.FC<LoveSliderProps> = ({ onComplete }) => {
           )}
 
           {/* Main content */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
             {/* Slider track going up */}
-            <div className="relative h-80 w-8 bg-gray-800 border-4 border-white rounded-full overflow-hidden mb-4">
+            <div className="relative h-48 sm:h-80 w-6 sm:w-8 bg-gray-800 border-4 border-white rounded-full overflow-hidden mb-4">
               {/* Fill that goes up */}
               <div
                 className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-pink-500 via-red-500 to-yellow-400 transition-all duration-100"
@@ -240,12 +240,12 @@ export const LoveSlider: React.FC<LoveSliderProps> = ({ onComplete }) => {
             </div>
 
             {/* Percentage display */}
-            <div className="text-6xl font-pixel text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
+            <div className="text-4xl sm:text-6xl font-pixel text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
               {rocketValue >= 1000 ? '∞%' : `${rocketValue}%`}
             </div>
 
             {/* Messages at different stages */}
-            <p className="font-pixel text-lg mt-4 text-center px-4" style={{
+            <p className="font-pixel text-xs sm:text-lg mt-2 sm:mt-4 text-center px-4" style={{
               color: rocketValue < 300 ? '#fff' : rocketValue < 600 ? '#f9a8d4' : '#fbbf24'
             }}>
               {rocketValue < 300 && "Uite cât te iubesc de fapt! 🚀"}
@@ -274,23 +274,23 @@ export const LoveSlider: React.FC<LoveSliderProps> = ({ onComplete }) => {
 
       {/* Popup with dancing characters and video */}
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center z-[100] bg-gradient-to-b from-pink-400 via-pink-300 to-pink-200 p-4">
-          <div className="bg-white border-4 border-black rounded-lg p-6 max-w-md w-full relative animate-popup-in shadow-2xl">
+        <div className="fixed inset-0 flex items-center justify-center z-[100] bg-gradient-to-b from-pink-400 via-pink-300 to-pink-200 p-2 sm:p-4">
+          <div className="bg-white border-4 border-black rounded-lg p-3 sm:p-6 max-w-md w-full relative animate-popup-in shadow-2xl mx-2">
             {/* Close button */}
             <button
               onClick={closePopup}
-              className="absolute -top-3 -right-3 bg-red-500 text-white w-10 h-10 rounded-full border-4 border-black font-pixel text-xl hover:bg-red-600 z-10"
+              className="absolute -top-3 -right-3 bg-red-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full border-4 border-black font-pixel text-base sm:text-xl hover:bg-red-600 z-10"
             >
               X
             </button>
 
             {/* Title */}
-            <h2 className="font-pixel text-center text-lg text-pixel-red mb-4">
+            <h2 className="font-pixel text-center text-xs sm:text-lg text-pixel-red mb-2 sm:mb-4">
               TE IUBESC LA INFINIT %! 💕
             </h2>
 
             {/* Video */}
-            <div className="mb-4 border-2 border-black">
+            <div className="mb-2 sm:mb-4 border-2 border-black">
               <video
                 ref={videoRef}
                 src="/sfx/vfx/meniato.mp4"
@@ -302,22 +302,22 @@ export const LoveSlider: React.FC<LoveSliderProps> = ({ onComplete }) => {
             </div>
 
             {/* Dancing characters */}
-            <div className="flex justify-center items-end gap-8">
+            <div className="flex justify-center items-end gap-4 sm:gap-8">
               {/* Ovidiu dancing */}
               <div className="flex flex-col items-center animate-dance-left">
                 <img
                   src={OVIDIU_SPRITES[spriteFrame % 2]}
                   alt="Ovidiu"
-                  className="w-20 h-20 object-cover object-top"
+                  className="w-14 h-14 sm:w-20 sm:h-20 object-cover object-top"
                 />
-                <div className="w-12 h-14 bg-gray-700 border-2 border-black -mt-1"></div>
+                <div className="w-8 h-10 sm:w-12 sm:h-14 bg-gray-700 border-2 border-black -mt-1"></div>
               </div>
 
               {/* Hearts between them */}
               <div className="flex flex-col items-center gap-1 animate-pulse">
-                <span className="text-2xl">💕</span>
-                <span className="text-xl">💖</span>
-                <span className="text-2xl">💕</span>
+                <span className="text-lg sm:text-2xl">💕</span>
+                <span className="text-base sm:text-xl">💖</span>
+                <span className="text-lg sm:text-2xl">💕</span>
               </div>
 
               {/* Antonia dancing */}
@@ -325,13 +325,13 @@ export const LoveSlider: React.FC<LoveSliderProps> = ({ onComplete }) => {
                 <img
                   src={ANTONIA_SPRITES[spriteFrame % 2]}
                   alt="Antonia"
-                  className="w-20 h-20 object-cover object-top"
+                  className="w-14 h-14 sm:w-20 sm:h-20 object-cover object-top"
                 />
-                <div className="w-12 h-14 bg-pink-500 border-2 border-black -mt-1"></div>
+                <div className="w-8 h-10 sm:w-12 sm:h-14 bg-pink-500 border-2 border-black -mt-1"></div>
               </div>
             </div>
 
-            <p className="font-pixel text-xs text-center mt-4 text-gray-600">
+            <p className="font-pixel text-[10px] sm:text-xs text-center mt-2 sm:mt-4 text-gray-600">
               Click X pentru a continua 💝
             </p>
           </div>

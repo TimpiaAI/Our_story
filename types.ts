@@ -5,6 +5,7 @@ export enum GameLevel {
   LOVE_SLIDER = 'LOVE_SLIDER', // Slider cu cat de mult te iubesc
   MEMORY = 'MEMORY',
   QUIZ = 'QUIZ',
+  LOVE_REASONS = 'LOVE_REASONS', // Te iubesc pentru că...
   BOSS = 'BOSS',
   LETTER = 'LETTER'
 }

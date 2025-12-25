@@ -175,16 +175,16 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
   const isGameComplete = solved.length === MEMORY_CARDS.length;
 
   return (
-    <div className="min-h-screen bg-pink-100 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-lg">
-        <div className="bg-black text-white font-pixel p-2 text-center mb-6 border-2 border-white">
+    <div className="min-h-screen bg-pink-100 flex flex-col items-center justify-center p-2 sm:p-4">
+      <div className="w-full max-w-lg px-2">
+        <div className="bg-black text-white font-pixel p-2 text-center mb-4 sm:mb-6 border-2 border-white text-[10px] sm:text-sm">
           NIVELUL 2: JOCUL AMINTIRILOR
         </div>
 
-        <PixelCard className="mb-6">
-           <p className="font-pixel text-xs text-center mb-4">
+        <PixelCard className="mb-4 sm:mb-6">
+           <p className="font-pixel text-[10px] sm:text-xs text-center mb-2 sm:mb-4">
              Găsește perechile care ne definesc, Antonia! <br/>
-             <span className="text-gray-500 text-[10px]">(Apasă pe cărți pentru a le întoarce)</span>
+             <span className="text-gray-500 text-[8px] sm:text-[10px]">(Apasă pe cărți pentru a le întoarce)</span>
            </p>
 
            <div className="grid grid-cols-4 gap-2 sm:gap-4">

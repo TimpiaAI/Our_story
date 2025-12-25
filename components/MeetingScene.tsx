@@ -31,8 +31,8 @@ const PixelCharacter: React.FC<{
   return (
     <div className="flex flex-col items-center relative">
       {showHeart && (
-        <div className="absolute -top-14 left-1/2 -translate-x-1/2">
-          <Heart className="w-6 h-6 text-red-500 fill-red-500 animate-float" />
+        <div className="absolute -top-10 sm:-top-14 left-1/2 -translate-x-1/2">
+          <Heart className="w-4 h-4 sm:w-6 sm:h-6 text-red-500 fill-red-500 animate-float" />
         </div>
       )}
 
@@ -41,32 +41,32 @@ const PixelCharacter: React.FC<{
         <img
           src={currentSprite}
           alt={isHe ? "Ovidiu" : "Antonia"}
-          className="w-24 h-24 object-cover object-top"
+          className="w-16 h-16 sm:w-24 sm:h-24 object-cover object-top"
         />
       </div>
 
       {/* Body */}
-      <div className={`w-16 h-16 ${bodyColor} border-2 border-black relative -mt-2`}>
+      <div className={`w-10 h-10 sm:w-16 sm:h-16 ${bodyColor} border-2 border-black relative -mt-2`}>
         {isHe && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-[8px] font-pixel text-white/50 tracking-tighter">GYM</span>
+            <span className="text-[6px] sm:text-[8px] font-pixel text-white/50 tracking-tighter">GYM</span>
           </div>
         )}
         {/* Arms */}
-        <div className={`absolute -left-3 top-2 w-3 h-10 ${isHe ? 'bg-amber-200' : 'bg-pink-200'} border-2 border-black`}></div>
-        <div className={`absolute -right-3 top-2 w-3 h-10 ${isHe ? 'bg-amber-200' : 'bg-pink-200'} border-2 border-black`}></div>
+        <div className={`absolute -left-2 sm:-left-3 top-1 sm:top-2 w-2 h-6 sm:w-3 sm:h-10 ${isHe ? 'bg-amber-200' : 'bg-pink-200'} border-2 border-black`}></div>
+        <div className={`absolute -right-2 sm:-right-3 top-1 sm:top-2 w-2 h-6 sm:w-3 sm:h-10 ${isHe ? 'bg-amber-200' : 'bg-pink-200'} border-2 border-black`}></div>
       </div>
 
       {/* Legs */}
       <div className="flex">
-        <div className="w-6 h-10 bg-gray-900 border-2 border-black border-t-0"></div>
-        <div className="w-6 h-10 bg-gray-900 border-2 border-black border-t-0 border-l-0"></div>
+        <div className="w-4 h-6 sm:w-6 sm:h-10 bg-gray-900 border-2 border-black border-t-0"></div>
+        <div className="w-4 h-6 sm:w-6 sm:h-10 bg-gray-900 border-2 border-black border-t-0 border-l-0"></div>
       </div>
 
       {/* Shoes */}
       <div className="flex">
-        <div className="w-7 h-3 bg-white border-2 border-black -ml-1"></div>
-        <div className="w-7 h-3 bg-white border-2 border-black -mr-1"></div>
+        <div className="w-5 h-2 sm:w-7 sm:h-3 bg-white border-2 border-black -ml-1"></div>
+        <div className="w-5 h-2 sm:w-7 sm:h-3 bg-white border-2 border-black -mr-1"></div>
       </div>
     </div>
   );
@@ -151,14 +151,14 @@ export const MeetingScene: React.FC<MeetingSceneProps> = ({ onComplete }) => {
       </div>
 
       {/* Moon with crater details */}
-      <div className="absolute top-8 right-12 w-20 h-20 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-full shadow-[0_0_60px_20px_rgba(255,255,200,0.3)] overflow-hidden">
-        <div className="absolute top-3 left-4 w-4 h-4 bg-yellow-300/40 rounded-full"></div>
-        <div className="absolute top-8 right-3 w-3 h-3 bg-yellow-300/30 rounded-full"></div>
-        <div className="absolute bottom-4 left-6 w-2 h-2 bg-yellow-300/30 rounded-full"></div>
+      <div className="absolute top-4 sm:top-8 right-4 sm:right-12 w-12 h-12 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-full shadow-[0_0_60px_20px_rgba(255,255,200,0.3)] overflow-hidden">
+        <div className="absolute top-2 sm:top-3 left-2 sm:left-4 w-2 h-2 sm:w-4 sm:h-4 bg-yellow-300/40 rounded-full"></div>
+        <div className="absolute top-4 sm:top-8 right-2 sm:right-3 w-2 h-2 sm:w-3 sm:h-3 bg-yellow-300/30 rounded-full"></div>
+        <div className="absolute bottom-2 sm:bottom-4 left-3 sm:left-6 w-1 h-1 sm:w-2 sm:h-2 bg-yellow-300/30 rounded-full"></div>
       </div>
 
       {/* Main Scene Container */}
-      <div className="relative w-full max-w-2xl h-96 flex items-end justify-center mb-8">
+      <div className="relative w-full max-w-2xl h-64 sm:h-96 flex items-end justify-center mb-4 sm:mb-8">
 
         {/* Lamp Post */}
         <div className="absolute left-8 sm:left-16 bottom-8 flex flex-col items-center z-20">
@@ -186,7 +186,7 @@ export const MeetingScene: React.FC<MeetingSceneProps> = ({ onComplete }) => {
         <div className="relative z-10 mb-12">
 
           {/* The Bench - improved design */}
-          <div className="relative">
+          <div className="relative scale-75 sm:scale-100">
             {/* Bench seat */}
             <div className="w-72 h-5 bg-gradient-to-b from-amber-700 to-amber-800 border-2 border-black rounded-sm shadow-lg"></div>
             {/* Bench back */}

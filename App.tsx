@@ -8,6 +8,7 @@ import { Quiz } from './components/Quiz';
 import { BossFight } from './components/BossFight';
 import { Letter } from './components/Letter';
 import { LoveSlider } from './components/LoveSlider';
+import { LoveReasons } from './components/LoveReasons';
 import { CoffeeBreak } from './components/CoffeeBreak';
 import { LevelTransition } from './components/LevelTransition';
 import { Coffee, Volume2, VolumeX } from 'lucide-react';
@@ -87,7 +88,9 @@ const App: React.FC = () => {
       case GameLevel.MEMORY:
         return <MemoryGame onComplete={() => transitionToLevel(GameLevel.QUIZ)} />;
       case GameLevel.QUIZ:
-        return <Quiz onComplete={() => transitionToLevel(GameLevel.BOSS)} />;
+        return <Quiz onComplete={() => transitionToLevel(GameLevel.LOVE_REASONS)} />;
+      case GameLevel.LOVE_REASONS:
+        return <LoveReasons onComplete={() => transitionToLevel(GameLevel.BOSS)} />;
       case GameLevel.BOSS:
         return <BossFight onComplete={() => transitionToLevel(GameLevel.LETTER)} />;
       case GameLevel.LETTER:
@@ -124,10 +127,9 @@ const App: React.FC = () => {
         </div>
 
         <div className="text-center z-10 animate-landing">
-          <h1 className="font-pixel text-4xl md:text-6xl text-pixel-red mb-4 drop-shadow-lg">
+          <h1 className="font-pixel text-3xl md:text-6xl text-pixel-red mb-8 drop-shadow-lg px-4">
             Povestea Noastră
           </h1>
-          <p className="font-pixel text-sm text-gray-600 mb-8">O aventură de dragoste în pixeli</p>
           <div className="animate-pulse">
             <p className="font-pixel text-xs text-gray-500">✨ Atinge pentru a începe ✨</p>
           </div>

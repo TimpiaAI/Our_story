@@ -32,12 +32,17 @@ const TRANSITION_MESSAGES: Record<GameLevel, { title: string; message: string; e
   },
   [GameLevel.QUIZ]: {
     title: "Quiz time!",
-    message: "Întrebări despre noi... fără Google, te rog!",
+    message: "Întrebări despre noi... nu căuta pe Google, nu căuta pe ChatGPT!",
     emoji: "📝"
+  },
+  [GameLevel.LOVE_REASONS]: {
+    title: "De ce te iubesc?",
+    message: "Pregătește-te să descoperi toate motivele...",
+    emoji: "💕"
   },
   [GameLevel.BOSS]: {
     title: "BOSS FIGHT!",
-    message: "Trebuie să învingi cel mai mare dușman: stresul de cuplu!",
+    message: "Trebuie să învingi cel mai mare boss: BABA!",
     emoji: "👹"
   },
   [GameLevel.LETTER]: {
@@ -105,30 +110,30 @@ export const LevelTransition: React.FC<LevelTransitionProps> = ({ targetLevel, o
       </div>
 
       {/* Content */}
-      <div className={`relative z-10 text-center transform transition-all duration-500 ${
+      <div className={`relative z-10 text-center transform transition-all duration-500 px-4 ${
         phase === 'show' ? 'scale-100 translate-y-0' : 'scale-75 translate-y-10'
       }`}>
         {/* Big emoji */}
-        <div className="text-8xl mb-6 animate-bounce-slow">
+        <div className="text-5xl sm:text-8xl mb-4 sm:mb-6 animate-bounce-slow">
           {transitionData.emoji}
         </div>
 
         {/* Title */}
-        <h1 className="font-pixel text-3xl md:text-4xl text-white mb-4 drop-shadow-lg animate-pulse-slow">
+        <h1 className="font-pixel text-xl sm:text-3xl md:text-4xl text-white mb-2 sm:mb-4 drop-shadow-lg animate-pulse-slow">
           {transitionData.title}
         </h1>
 
         {/* Funny message */}
-        <p className="font-pixel text-sm md:text-base text-pink-200 max-w-md mx-auto px-4 leading-relaxed">
+        <p className="font-pixel text-[10px] sm:text-sm md:text-base text-pink-200 max-w-md mx-auto px-4 leading-relaxed">
           {transitionData.message}
         </p>
 
         {/* Continue button */}
         <button
           onClick={handleContinue}
-          className="mt-8 mx-auto bg-gradient-to-r from-pink-500 to-red-500 text-white font-pixel text-sm py-4 px-8 border-4 border-white/30 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all flex items-center justify-center gap-3 hover:from-pink-600 hover:to-red-600 rounded-lg animate-pulse-slow"
+          className="mt-6 sm:mt-8 mx-auto bg-gradient-to-r from-pink-500 to-red-500 text-white font-pixel text-xs sm:text-sm py-3 sm:py-4 px-6 sm:px-8 border-4 border-white/30 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all flex items-center justify-center gap-2 sm:gap-3 hover:from-pink-600 hover:to-red-600 rounded-lg animate-pulse-slow"
         >
-          CONTINUĂ <ArrowRight className="w-5 h-5" />
+          CONTINUĂ <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       </div>
 

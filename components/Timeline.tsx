@@ -147,12 +147,12 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
       </div>
 
       {/* --- HUD --- */}
-      <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur border-2 border-black p-2 font-pixel text-xs shadow-md flex items-center gap-2">
-         <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-         Zile împreună: <span className="text-red-500 font-bold">{days}</span>
+      <div className="absolute top-12 sm:top-4 left-2 sm:left-4 z-20 bg-white/90 backdrop-blur border-2 border-black p-1 sm:p-2 font-pixel text-[8px] sm:text-xs shadow-md flex items-center gap-1 sm:gap-2">
+         <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 fill-red-500" />
+         Zile: <span className="text-red-500 font-bold">{days}</span>
       </div>
-      <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-        <div className="w-32 h-4 bg-gray-200/80 border-2 border-black rounded-full overflow-hidden">
+      <div className="absolute top-12 sm:top-4 right-2 sm:right-4 z-20 flex items-center gap-2">
+        <div className="w-20 sm:w-32 h-3 sm:h-4 bg-gray-200/80 border-2 border-black rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-red-500 to-pink-500 transition-all duration-500"
             style={{ width: `${progress}%` }}
@@ -179,8 +179,8 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
       <div className="flex-1 flex flex-col items-center justify-end pb-32 relative">
 
         {/* Memory "Bubble" / Popup */}
-        <div className={`transition-all duration-500 ease-out transform ${showPhoto ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-90'} z-10 mb-8`}>
-            <div className="bg-white p-4 pb-10 shadow-2xl rotate-1 max-w-[300px] md:max-w-sm border-4 border-white relative rounded-lg">
+        <div className={`transition-all duration-500 ease-out transform ${showPhoto ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-90'} z-10 mb-4 sm:mb-8`}>
+            <div className="bg-white p-2 sm:p-4 pb-6 sm:pb-10 shadow-2xl rotate-1 max-w-[200px] sm:max-w-[300px] md:max-w-sm border-4 border-white relative rounded-lg">
                {/* Tape with Christmas pattern */}
                <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-28 h-10 bg-gradient-to-r from-red-500 via-green-500 to-red-500 transform -rotate-1 rounded opacity-80"></div>
 
@@ -188,10 +188,10 @@ export const Timeline: React.FC<TimelineProps> = ({ onComplete }) => {
                   <img src={currentEvent.image} alt="Memory" className="w-full h-full object-cover" />
                </div>
 
-               <h3 className="font-handwriting text-3xl text-center text-gray-800 mb-2">
+               <h3 className="font-handwriting text-xl sm:text-3xl text-center text-gray-800 mb-1 sm:mb-2">
                  {currentEvent.date}
                </h3>
-               <p className="font-pixel text-[10px] text-center text-gray-600 leading-relaxed px-2">
+               <p className="font-pixel text-[8px] sm:text-[10px] text-center text-gray-600 leading-relaxed px-1 sm:px-2">
                  {currentEvent.desc}
                </p>
 

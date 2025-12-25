@@ -77,26 +77,26 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="min-h-screen bg-indigo-900 flex flex-col items-center justify-center p-4 relative">
-       <div className="bg-black text-white font-pixel p-2 text-center mb-8 border-2 border-white w-full max-w-lg">
+    <div className="min-h-screen bg-indigo-900 flex flex-col items-center justify-center p-2 sm:p-4 relative">
+       <div className="bg-black text-white font-pixel p-2 text-center mb-4 sm:mb-8 border-2 border-white w-full max-w-lg text-[10px] sm:text-sm mx-2">
           NIVELUL 2: LOVE QUIZ
           <div className="flex justify-center gap-1 mt-2">
             {[...Array(3)].map((_, i) => (
-              <Heart key={i} className={`w-4 h-4 ${i < 3 - qIndex ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
+              <Heart key={i} className={`w-3 h-3 sm:w-4 sm:h-4 ${i < 3 - qIndex ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
             ))}
           </div>
         </div>
 
-      <PixelCard className="max-w-lg w-full">
+      <PixelCard className="max-w-lg w-full mx-2">
         {feedback ? (
-           <div className={`text-center py-8 ${feedback.type === 'error' ? 'text-red-600' : 'text-green-600'}`}>
-             {feedback.type === 'error' ? <HeartCrack className="w-16 h-16 mx-auto mb-4" /> : <Heart className="w-16 h-16 mx-auto mb-4 fill-current" />}
-             <h3 className="font-pixel text-xl mb-4">{feedback.type === 'error' ? 'ERROR!' : 'CORECT!'}</h3>
-             <p className="font-pixel text-sm">{feedback.msg}</p>
+           <div className={`text-center py-4 sm:py-8 ${feedback.type === 'error' ? 'text-red-600' : 'text-green-600'}`}>
+             {feedback.type === 'error' ? <HeartCrack className="w-10 h-10 sm:w-16 sm:h-16 mx-auto mb-2 sm:mb-4" /> : <Heart className="w-10 h-10 sm:w-16 sm:h-16 mx-auto mb-2 sm:mb-4 fill-current" />}
+             <h3 className="font-pixel text-base sm:text-xl mb-2 sm:mb-4">{feedback.type === 'error' ? 'ERROR!' : 'CORECT!'}</h3>
+             <p className="font-pixel text-xs sm:text-sm">{feedback.msg}</p>
              {feedback.type === 'error' && (
-               <button 
+               <button
                  onClick={() => setFeedback(null)}
-                 className="mt-6 bg-gray-200 font-pixel px-4 py-2 border-2 border-black text-xs hover:bg-gray-300"
+                 className="mt-4 sm:mt-6 bg-gray-200 font-pixel px-3 sm:px-4 py-2 border-2 border-black text-[10px] sm:text-xs hover:bg-gray-300"
                >
                  Am plătit pedeapsa (Încearcă iar)
                </button>
@@ -104,17 +104,17 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
            </div>
         ) : (
           <>
-            <h2 className="font-pixel text-sm md:text-base leading-6 mb-8 text-center min-h-[60px]">
+            <h2 className="font-pixel text-xs sm:text-sm md:text-base leading-5 sm:leading-6 mb-4 sm:mb-8 text-center min-h-[40px] sm:min-h-[60px]">
               {qIndex + 1}. {currentQ.question}
             </h2>
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {currentQ.options.map((opt, idx) => (
                 <button
                   key={idx}
                   onClick={() => { playButtonSound(); handleAnswer(idx); }}
-                  className="w-full text-left font-pixel text-xs md:text-sm p-4 border-2 border-black hover:bg-pixel-pink hover:text-white transition-colors flex items-center gap-2"
+                  className="w-full text-left font-pixel text-[10px] sm:text-xs md:text-sm p-2 sm:p-4 border-2 border-black hover:bg-pixel-pink hover:text-white transition-colors flex items-center gap-2"
                 >
-                  <span className="w-6 h-6 flex items-center justify-center bg-black text-white text-[10px]">{String.fromCharCode(65 + idx)}</span>
+                  <span className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center bg-black text-white text-[8px] sm:text-[10px] flex-shrink-0">{String.fromCharCode(65 + idx)}</span>
                   {opt}
                 </button>
               ))}

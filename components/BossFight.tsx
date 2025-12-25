@@ -183,37 +183,37 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
       <div className="absolute inset-0 z-0 opacity-30 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay"></div>
 
       {/* --- HUD (Heads Up Display) --- */}
-      <div className="w-full max-w-2xl z-20 flex justify-between items-start pt-4 gap-4">
+      <div className="w-full max-w-2xl z-20 flex justify-between items-start pt-2 sm:pt-4 gap-2 sm:gap-4 px-2">
         {/* Player Health */}
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-10 h-10 border-2 border-white overflow-hidden">
+          <div className="flex items-center gap-1 sm:gap-2 mb-1">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-white overflow-hidden">
                 <img src={OVIDIU_SPRITES[spriteFrame % 2]} alt="Ovidiu" className="w-full h-full object-cover object-top" />
             </div>
-            <span className="font-pixel text-yellow-400 text-xs shadow-black drop-shadow-md">RĂBDARE</span>
+            <span className="font-pixel text-yellow-400 text-[8px] sm:text-xs shadow-black drop-shadow-md">RĂBDARE</span>
           </div>
-          <div className="h-6 w-full bg-gray-700 border-2 border-white relative skew-x-[-10deg]">
-             <div 
-               className="h-full bg-yellow-400 transition-all duration-300" 
+          <div className="h-4 sm:h-6 w-full bg-gray-700 border-2 border-white relative skew-x-[-10deg]">
+             <div
+               className="h-full bg-yellow-400 transition-all duration-300"
                style={{ width: `${playerHp}%` }}
              ></div>
           </div>
         </div>
 
         {/* VS Badge */}
-        <div className="font-pixel text-2xl text-red-500 animate-pulse italic mt-2">VS</div>
+        <div className="font-pixel text-lg sm:text-2xl text-red-500 animate-pulse italic mt-2">VS</div>
 
         {/* Enemy Health */}
         <div className="flex-1 text-right">
-          <div className="flex items-center gap-2 mb-1 justify-end">
-             <span className="font-pixel text-pink-500 text-xs shadow-black drop-shadow-md">SUPĂRARE</span>
-             <div className="w-10 h-10 border-2 border-white overflow-hidden">
+          <div className="flex items-center gap-1 sm:gap-2 mb-1 justify-end">
+             <span className="font-pixel text-pink-500 text-[8px] sm:text-xs shadow-black drop-shadow-md">SUPĂRARE</span>
+             <div className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-white overflow-hidden">
                 <img src={ANTONIA_SPRITES[spriteFrame % 2]} alt="Antonia" className="w-full h-full object-cover object-top" />
              </div>
           </div>
-          <div className="h-6 w-full bg-gray-700 border-2 border-white relative skew-x-[10deg]">
-             <div 
-               className="h-full bg-pink-500 transition-all duration-300 ml-auto" 
+          <div className="h-4 sm:h-6 w-full bg-gray-700 border-2 border-white relative skew-x-[10deg]">
+             <div
+               className="h-full bg-pink-500 transition-all duration-300 ml-auto"
                style={{ width: `${enemyHp}%` }}
              ></div>
           </div>
@@ -221,7 +221,7 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
       </div>
 
       {/* --- BATTLE ARENA --- */}
-      <div className="flex-1 w-full max-w-3xl flex justify-between items-end relative z-10 px-4 md:px-20 pb-20">
+      <div className="flex-1 w-full max-w-3xl flex justify-between items-end relative z-10 px-2 sm:px-4 md:px-20 pb-16 sm:pb-20">
         
         {/* Floating Photos Overlay */}
         {floatingPhotos.map(photo => (
@@ -235,51 +235,51 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
         ))}
 
         {/* Player Sprite */}
-        <div className={`transition-transform duration-200 ${playerAction === 'attack' ? 'translate-x-20' : ''} ${playerAction === 'hit' ? '-translate-x-10 opacity-50' : ''}`}>
+        <div className={`transition-transform duration-200 ${playerAction === 'attack' ? 'translate-x-10 sm:translate-x-20' : ''} ${playerAction === 'hit' ? '-translate-x-5 sm:-translate-x-10 opacity-50' : ''}`}>
            <div className="flex flex-col items-center animate-bounce-slow">
               {/* Head */}
               <img
                 src={OVIDIU_SPRITES[spriteFrame % 2]}
                 alt="Ovidiu"
-                className="w-24 h-24 md:w-32 md:h-32 object-cover object-top"
+                className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 object-cover object-top"
               />
               {/* Body */}
-              <div className="w-20 h-24 md:w-24 md:h-28 bg-gray-700 border-4 border-black relative -mt-2">
+              <div className="w-12 h-16 sm:w-20 sm:h-24 md:w-24 md:h-28 bg-gray-700 border-2 sm:border-4 border-black relative -mt-2">
                 {/* Arms */}
-                <div className="absolute -left-4 top-2 w-4 h-12 bg-amber-200 border-2 border-black"></div>
-                <div className={`absolute -right-4 top-2 w-4 h-12 bg-amber-200 border-2 border-black ${playerAction === 'attack' ? 'rotate-[-45deg] origin-top' : ''}`}></div>
+                <div className="absolute -left-2 sm:-left-4 top-1 sm:top-2 w-2 sm:w-4 h-8 sm:h-12 bg-amber-200 border-2 border-black"></div>
+                <div className={`absolute -right-2 sm:-right-4 top-1 sm:top-2 w-2 sm:w-4 h-8 sm:h-12 bg-amber-200 border-2 border-black ${playerAction === 'attack' ? 'rotate-[-45deg] origin-top' : ''}`}></div>
               </div>
               {/* Effect when attacking */}
               {playerAction === 'attack' && (
-                <div className="absolute -right-8 top-12 text-4xl">👊</div>
+                <div className="absolute -right-4 sm:-right-8 top-8 sm:top-12 text-2xl sm:text-4xl">👊</div>
               )}
            </div>
-           <div className="w-32 h-4 bg-black/30 rounded-full blur-md mt-2 mx-auto"></div>
+           <div className="w-20 sm:w-32 h-3 sm:h-4 bg-black/30 rounded-full blur-md mt-2 mx-auto"></div>
         </div>
 
         {/* Enemy Sprite */}
-        <div className={`transition-transform duration-200 ${enemyAction === 'attack' ? '-translate-x-20' : ''} ${enemyAction === 'hit' ? 'translate-x-10 opacity-50 filter grayscale' : ''}`}>
+        <div className={`transition-transform duration-200 ${enemyAction === 'attack' ? '-translate-x-10 sm:-translate-x-20' : ''} ${enemyAction === 'hit' ? 'translate-x-5 sm:translate-x-10 opacity-50 filter grayscale' : ''}`}>
            <div className="flex flex-col items-center animate-bounce-slow" style={{ animationDelay: '0.5s' }}>
               {/* Head */}
               <img
                 src={ANTONIA_SPRITES[spriteFrame % 2]}
                 alt="Antonia"
-                className="w-24 h-24 md:w-32 md:h-32 object-cover object-top"
+                className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 object-cover object-top"
               />
               {/* Body */}
-              <div className="w-20 h-24 md:w-24 md:h-28 bg-pink-500 border-4 border-black relative -mt-2">
+              <div className="w-12 h-16 sm:w-20 sm:h-24 md:w-24 md:h-28 bg-pink-500 border-2 sm:border-4 border-black relative -mt-2">
                 {/* Arms */}
-                <div className={`absolute -left-4 top-2 w-4 h-12 bg-pink-200 border-2 border-black ${enemyAction === 'attack' ? 'rotate-[45deg] origin-top' : ''}`}></div>
-                <div className="absolute -right-4 top-2 w-4 h-12 bg-pink-200 border-2 border-black"></div>
+                <div className={`absolute -left-2 sm:-left-4 top-1 sm:top-2 w-2 sm:w-4 h-8 sm:h-12 bg-pink-200 border-2 border-black ${enemyAction === 'attack' ? 'rotate-[45deg] origin-top' : ''}`}></div>
+                <div className="absolute -right-2 sm:-right-4 top-1 sm:top-2 w-2 sm:w-4 h-8 sm:h-12 bg-pink-200 border-2 border-black"></div>
               </div>
            </div>
-           <div className="w-32 h-4 bg-black/30 rounded-full blur-md mt-2 mx-auto"></div>
+           <div className="w-20 sm:w-32 h-3 sm:h-4 bg-black/30 rounded-full blur-md mt-2 mx-auto"></div>
         </div>
 
         {/* KO Overlay */}
         {isKo && (
           <div className="absolute inset-0 flex items-center justify-center z-50">
-             <h1 className="text-8xl md:text-9xl font-pixel text-yellow-400 drop-shadow-[0_10px_0_rgba(0,0,0,1)] animate-pulse scale-150">
+             <h1 className="text-5xl sm:text-8xl md:text-9xl font-pixel text-yellow-400 drop-shadow-[0_10px_0_rgba(0,0,0,1)] animate-pulse scale-125 sm:scale-150">
                K.O.
              </h1>
           </div>
@@ -287,25 +287,25 @@ export const BossFight: React.FC<BossFightProps> = ({ onComplete }) => {
       </div>
 
       {/* --- COMMAND CENTER --- */}
-      <div className="w-full max-w-2xl bg-black border-t-4 border-l-4 border-r-4 border-white p-4 z-20 rounded-t-xl">
-        <div className="mb-4 text-center">
-          <p className="text-white font-pixel text-sm md:text-base animate-pulse">
+      <div className="w-full max-w-2xl bg-black border-t-4 border-l-4 border-r-4 border-white p-2 sm:p-4 z-20 rounded-t-xl mx-2">
+        <div className="mb-2 sm:mb-4 text-center">
+          <p className="text-white font-pixel text-[10px] sm:text-sm md:text-base animate-pulse">
             {message}
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1 sm:gap-2">
            {BATTLE_MOVES.map((move, idx) => (
              <button
                key={idx}
                disabled={turn !== 'player' || isKo}
                onClick={() => handleAttack(move)}
-               className={`${move.color} text-white font-pixel py-3 px-2 border-b-4 border-black active:border-b-0 active:translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:brightness-110 text-xs md:text-sm uppercase flex items-center justify-center gap-1`}
+               className={`${move.color} text-white font-pixel py-2 sm:py-3 px-1 sm:px-2 border-b-4 border-black active:border-b-0 active:translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:brightness-110 text-[8px] sm:text-xs md:text-sm uppercase flex items-center justify-center gap-1`}
              >
-                {move.name === 'Ciocolată' && <Sparkles className="w-3 h-3" />}
-                {move.name === 'Scuze' && <Shield className="w-3 h-3" />}
-                {move.name === 'Pupic Dulce' && <Heart className="w-3 h-3 fill-current" />}
-                {move.name === 'Îmbrățișare' && <Zap className="w-3 h-3 fill-current" />}
+                {move.name === 'Ciocolată' && <Sparkles className="w-2 h-2 sm:w-3 sm:h-3" />}
+                {move.name === 'Scuze' && <Shield className="w-2 h-2 sm:w-3 sm:h-3" />}
+                {move.name === 'Pupic Dulce' && <Heart className="w-2 h-2 sm:w-3 sm:h-3 fill-current" />}
+                {move.name === 'Îmbrățișare' && <Zap className="w-2 h-2 sm:w-3 sm:h-3 fill-current" />}
                 {move.name}
              </button>
            ))}
