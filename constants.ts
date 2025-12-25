@@ -38,49 +38,195 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 ];
 
 export const TIMELINE_EVENTS = [
-  { 
-    date: "25 Mai 2024", 
-    title: "Începutul", 
-    icon: "🌱",
-    image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=400&auto=format&fit=crop", 
-    desc: "Ziua în care totul s-a schimbat în bine."
+  // Childhood photos - intro
+  {
+    date: "Cândva...",
+    title: "Antonia Micuță",
+    icon: "👶",
+    image: "/imagini/personal/timeline/antonia_micuta.png",
+    desc: "O prințesă mică care avea să-mi fure inima.",
+    isPause: false
   },
-  { 
-    date: "31 Dec 2024", 
-    title: "Primul Revelion", 
+  {
+    date: "Cândva...",
+    title: "Ovidiu Micuț",
+    icon: "👶",
+    image: "/imagini/personal/timeline/ovidiu_micut.png",
+    desc: "Un băiețel care nu știa ce-l așteaptă.",
+    isPause: false
+  },
+  // Cronologic 2024
+  {
+    date: "28 Mai 2024",
+    title: "Prima Poză Împreună",
+    icon: "📸",
+    image: "/imagini/personal/timeline/prima_poza_28mai2024.png",
+    desc: "Ziua în care totul a început oficial.",
+    isPause: false
+  },
+  {
+    date: "7 Iunie 2024",
+    title: "Prima Floare",
+    icon: "🌸",
+    image: "/imagini/personal/timeline/prima_floare_7_iunie.png",
+    desc: "Prima floare pentru cea mai frumoasă floare.",
+    isPause: false
+  },
+  {
+    date: "26 Iulie 2024",
+    title: "Prima Dată la Ch9",
+    icon: "🎉",
+    image: "/imagini/personal/timeline/firsttimeatch9_26iulie_2024.png",
+    desc: "Aventuri noi, amintiri noi.",
+    isPause: false
+  },
+  {
+    date: "4 August 2024",
+    title: "După Capace",
+    icon: "🎯",
+    image: "/imagini/personal/timeline/dupacapace_4august_2024.png",
+    desc: "Am supraviețuit împreună!",
+    isPause: false
+  },
+  {
+    date: "24 August 2024",
+    title: "Drumeție",
+    icon: "🥾",
+    image: "/imagini/personal/timeline/drumetie_24august2024.png",
+    desc: "Natură, aer curat și tu lângă mine.",
+    isPause: false
+  },
+  {
+    date: "23 Noiembrie 2024",
+    title: "16 Anișori",
+    icon: "🎂",
+    image: "/imagini/personal/timeline/16anisori_23nov_2024.png",
+    desc: "La mulți ani, prințesa mea!",
+    isPause: false
+  },
+  {
+    date: "31 Decembrie 2024",
+    title: "Primul Revelion",
     icon: "🎆",
-    image: "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=400&auto=format&fit=crop", 
-    desc: "Noaptea dintre ani, prima dintre multele."
+    image: "/imagini/personal/timeline/primul_revelion_31.12.2024.png",
+    desc: "Primul An Nou împreună. Primul din multe!",
+    isPause: false
   },
-  { 
-    date: "25 Dec 2025", 
-    title: "Crăciun Împreună", 
-    icon: "🎄",
-    image: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?q=80&w=400&auto=format&fit=crop", 
-    desc: "Sărbători magice alături de tine, Antonia."
+  // 2025
+  {
+    date: "14 Martie 2025",
+    title: "#StopDroguri",
+    icon: "💪",
+    image: "/imagini/personal/timeline/stopdroguri_14_mar_2025.png",
+    desc: "Mesaj important, împreună suntem mai puternici.",
+    isPause: false
   },
-  { 
-    date: "Viitor", 
-    title: "Pentru totdeauna", 
+  {
+    date: "5 Aprilie 2025",
+    title: "Alba Iulia",
+    icon: "🏰",
+    image: "/imagini/personal/timeline/5_aprilie_2025_alba_iulia.png",
+    desc: "Istorie și dragoste în cetate.",
+    isPause: false
+  },
+  {
+    date: "23 Aprilie 2025",
+    title: "Sighișoara",
+    icon: "🏯",
+    image: "/imagini/personal/timeline/sighisoara_23_aprilie_2025.png",
+    desc: "",
+    isPause: false
+  },
+  // PAUZA 2 - Masă
+  {
+    date: "...",
+    title: "PAUZĂ DE MASĂ!",
+    icon: "🍽️",
+    image: "/imagini/personal/timeline/pauza2_pauza_de_masa.png",
+    desc: "Mâncăm ceva?",
+    isPause: true,
+    pauseMusic: "/sfx/random_funny_sfx/all goofy ahh sound effects (mp3cut.net) (10).mp3"
+  },
+  {
+    date: "28 Mai 2025",
+    title: "1 AN ÎMPREUNĂ! - Sibiu",
+    icon: "🎊",
+    image: "/imagini/personal/timeline/28_mai_2025_SBIIU.png",
+    desc: "",
+    isPause: false
+  },
+  {
+    date: "5 Iulie 2025",
+    title: "Mamaia",
+    icon: "🏖️",
+    image: "/imagini/personal/timeline/mamaia_5_iulie_2025.png",
+    desc: "Soare, mare și tu.",
+    isPause: false
+  },
+  {
+    date: "30 August 2025",
+    title: "Corfu Town",
+    icon: "🇬🇷",
+    image: "/imagini/personal/timeline/corfu_town_30_august_2025.png",
+    desc: "",
+    isPause: false
+  },
+  {
+    date: "23 Noiembrie 2025",
+    title: "17 Anișori",
+    icon: "🎂",
+    image: "/imagini/personal/timeline/17anisori_23nov_2025.png",
+    desc: "La mulți ani din nou, iubirea mea!",
+    isPause: false
+  },
+  {
+    date: "12 Decembrie 2025",
+    title: "Sushi Maki",
+    icon: "🍣",
+    image: "/imagini/personal/timeline/sushi_maki_12.12.2025.png",
+    desc: "Sushi date cu tine.",
+    isPause: false
+  },
+  {
+    date: "Decembrie 2025",
+    title: "Aici Erai Fericită",
+    icon: "😊",
+    image: "/imagini/personal/timeline/aici_erai_fericita_dec_2025.png",
+    desc: "Fericirea ta e fericirea mea.",
+    isPause: false
+  },
+  {
+    date: "Decembrie 2025",
+    title: "Ultima Poză (Deocamdată)",
+    icon: "💪",
+    image: "/imagini/personal/timeline/spate_puternic_dec_2025_ultima_poza.png",
+    desc: "Spate mare!",
+    isPause: false
+  },
+  {
+    date: "Viitor",
+    title: "Pentru Totdeauna",
     icon: "💍",
-    image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=400&auto=format&fit=crop", 
-    desc: "Urmează o viață întreagă de aventuri."
+    image: "/imagini/personal/timeline/spate_puternic_dec_2025_ultima_poza.png",
+    desc: "Urmează o viață întreagă de aventuri împreună.",
+    isPause: false
   }
 ];
 
+// 6 personal photos for memory game (each appears twice for matching)
 export const MEMORY_CARDS = [
-  { id: 1, content: "🍕", type: 'pizza' },
-  { id: 2, content: "🍕", type: 'pizza' },
-  { id: 3, content: "🐱", type: 'cat' },
-  { id: 4, content: "🐱", type: 'cat' },
-  { id: 5, content: "🎬", type: 'movie' },
-  { id: 6, content: "🎬", type: 'movie' },
-  { id: 7, content: "✈️", type: 'travel' },
-  { id: 8, content: "✈️", type: 'travel' },
-  { id: 9, content: "❤️", type: 'heart' },
-  { id: 10, content: "❤️", type: 'heart' },
-  { id: 11, content: "🏠", type: 'home' },
-  { id: 12, content: "🏠", type: 'home' },
+  { id: 1, content: "/imagini/personal/timeline/prima_poza_28mai2024.png", type: 'prima' },
+  { id: 2, content: "/imagini/personal/timeline/prima_poza_28mai2024.png", type: 'prima' },
+  { id: 3, content: "/imagini/personal/timeline/prima_floare_7_iunie.png", type: 'floare' },
+  { id: 4, content: "/imagini/personal/timeline/prima_floare_7_iunie.png", type: 'floare' },
+  { id: 5, content: "/imagini/personal/timeline/drumetie_24august2024.png", type: 'drumetie' },
+  { id: 6, content: "/imagini/personal/timeline/drumetie_24august2024.png", type: 'drumetie' },
+  { id: 7, content: "/imagini/personal/timeline/primul_revelion_31.12.2024.png", type: 'revelion' },
+  { id: 8, content: "/imagini/personal/timeline/primul_revelion_31.12.2024.png", type: 'revelion' },
+  { id: 9, content: "/imagini/personal/timeline/5_aprilie_2025_alba_iulia.png", type: 'alba' },
+  { id: 10, content: "/imagini/personal/timeline/5_aprilie_2025_alba_iulia.png", type: 'alba' },
+  { id: 11, content: "/imagini/personal/timeline/corfu_town_30_august_2025.png", type: 'corfu' },
+  { id: 12, content: "/imagini/personal/timeline/corfu_town_30_august_2025.png", type: 'corfu' },
 ];
 
 export const BATTLE_MOVES = [
@@ -90,9 +236,12 @@ export const BATTLE_MOVES = [
   { name: "Scuze", dmg: 10, color: "bg-blue-500" },
 ];
 
+// Personal photos for boss fight scene
 export const BATTLE_PHOTOS = [
-  "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=150&h=150&fit=crop",
-  "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=150&h=150&fit=crop",
-  "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=150&h=150&fit=crop",
-  "https://images.unsplash.com/photo-1621600411688-4be93cd68504?w=150&h=150&fit=crop"
+  "/imagini/personal/timeline/prima_poza_28mai2024.png",
+  "/imagini/personal/timeline/16anisori_23nov_2024.png",
+  "/imagini/personal/timeline/28_mai_2025_SBIIU.png",
+  "/imagini/personal/timeline/mamaia_5_iulie_2025.png",
+  "/imagini/personal/timeline/17anisori_23nov_2025.png",
+  "/imagini/personal/timeline/aici_erai_fericita_dec_2025.png"
 ];

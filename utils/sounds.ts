@@ -189,3 +189,18 @@ export const playWrongSound = () => {
     audio.play().catch(() => {});
   }, 200);
 };
+
+// Play a specific sound file with optional duration
+export const playSpecificSound = (soundPath: string, volume = 0.8, durationMs = 10000) => {
+  const audio = new Audio(soundPath);
+  audio.volume = Math.min(1, Math.max(0, volume)); // Clamp between 0 and 1
+  audio.play().catch(() => {});
+  // Stop after specified duration
+  if (durationMs > 0) {
+    setTimeout(() => {
+      audio.pause();
+      audio.currentTime = 0;
+    }, durationMs);
+  }
+  return audio;
+};

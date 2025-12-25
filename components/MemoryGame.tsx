@@ -211,15 +211,23 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ onComplete }) => {
                    <button
                      onClick={() => handleClick(card.id)}
                      className={`
-                       aspect-square border-2 border-black font-pixel text-2xl flex items-center justify-center transition-all duration-300 w-full
-                       ${isFlipped ? 'bg-white' : 'bg-pixel-red pattern-zigzag'}
+                       aspect-square border-2 border-black font-pixel text-2xl flex items-center justify-center transition-all duration-300 w-full overflow-hidden
+                       ${isFlipped ? 'bg-white p-0.5' : 'bg-pixel-red pattern-zigzag'}
                        ${solved.includes(card.id) ? 'opacity-50 scale-95' : ''}
                        ${animationClass}
                        ${behavior && !isFlipped ? 'hover:animate-wiggle' : ''}
                      `}
                      disabled={isFlipped || disabled}
                    >
-                     {isFlipped ? card.content : '?'}
+                     {isFlipped ? (
+                       <img
+                         src={card.content}
+                         alt="Memory"
+                         className="w-full h-full object-cover rounded-sm"
+                       />
+                     ) : (
+                       '?'
+                     )}
                    </button>
 
                    {/* Funny message bubble */}
